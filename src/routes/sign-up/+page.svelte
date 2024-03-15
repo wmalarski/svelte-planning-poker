@@ -1,12 +1,11 @@
 <script lang="ts">
-	import type { SuperValidated } from 'sveltekit-superforms';
 	import SignUpForm from './sign-up-form.svelte';
-	import type { Output } from 'valibot';
-	import type { FormSchema } from './schema';
+	import { FormLayout } from '$lib/components/layouts/form-layout';
 
 	export let data;
-
-	let form = data.form;
+	export let form;
 </script>
 
-<SignUpForm data={form} />
+<FormLayout>
+	<SignUpForm data={data.form} message={form?.message} />
+</FormLayout>

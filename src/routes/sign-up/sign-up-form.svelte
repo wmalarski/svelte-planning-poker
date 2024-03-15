@@ -9,6 +9,7 @@
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 
 	export let data: SuperValidated<Output<FormSchema>>;
+	export let message: string | undefined;
 
 	const form = superForm(data, { validators: valibotClient(formSchema) });
 
@@ -27,6 +28,10 @@
 					<span class="w-full border-t" />
 				</div>
 			</div>
+
+			{#if message}
+				<span class="text-sm font-medium text-destructive">{message}</span>
+			{/if}
 
 			<Form.Field {form} name="email">
 				<Form.Control let:attrs>
@@ -47,7 +52,7 @@
 			</Form.Field>
 		</Card.Content>
 		<Card.Footer>
-			<Button class="w-full">Create account</Button>
+			<Button class="w-full" type="submit">Create account</Button>
 		</Card.Footer>
 	</form>
 </Card.Root>
