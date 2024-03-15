@@ -1,9 +1,12 @@
 <script lang="ts">
-	import { Input } from '$lib/components/ui/input';
+	import type { SuperValidated } from 'sveltekit-superforms';
+	import SignUpForm from './sign-up-form.svelte';
+	import type { Output } from 'valibot';
+	import type { FormSchema } from './schema';
 
 	export let data;
-	let { supabase } = data;
-	$: ({ supabase } = data);
+
+	let form = data.form;
 </script>
 
-<Input />
+<SignUpForm data={form} />

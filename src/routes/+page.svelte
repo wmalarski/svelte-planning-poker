@@ -10,4 +10,8 @@
 
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 
+<a href="/sign-up">Sign Up</a>
+
+<a href="/sign-in">Sign In</a>
+
 <Input />
