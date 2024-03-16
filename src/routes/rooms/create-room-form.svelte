@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
-	import * as Card from '$lib/components/ui/card/index.js';
-	import * as Form from '$lib/components/ui/form/index.js';
+	import { Button } from '$lib/components/ui/button';
+	import * as Card from '$lib/components/ui/card';
+	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
 	import { superForm, type SuperValidated } from 'sveltekit-superforms';
 	import type { Output } from 'valibot';
@@ -19,7 +19,7 @@
 <Card.Root>
 	<form method="POST" use:enhance>
 		<Card.Header class="space-y-1">
-			<Card.Title class="text-2xl">Create Room</Card.Title>
+			<Card.Title tag="h2" class="text-2xl">Create Room</Card.Title>
 			<Card.Description>Create planning poker room</Card.Description>
 		</Card.Header>
 		<Card.Content class="grid gap-4">

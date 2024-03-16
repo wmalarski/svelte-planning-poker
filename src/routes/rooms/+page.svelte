@@ -1,11 +1,11 @@
 <script lang="ts">
 	import CreateRoomForm from './create-room-form.svelte';
-	import { FormLayout } from '$lib/components/layouts/form-layout';
+	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
 
 	export let data;
 	export let form;
 </script>
 
-<FormLayout>
+<NavbarLayout>
 	<CreateRoomForm data={data.form} message={form?.message} />
-</FormLayout>
+</NavbarLayout>

@@ -1,9 +1,5 @@
 <script lang="ts">
-	import { Input } from '$lib/components/ui/input';
-
-	export let data;
-	let { supabase } = data;
-	$: ({ supabase } = data);
+	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
 </script>
 
-<Input />
+<NavbarLayout>Room</NavbarLayout>
