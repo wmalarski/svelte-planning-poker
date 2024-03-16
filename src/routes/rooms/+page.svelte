@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { Input } from '$lib/components/ui/input';
+	import CreateRoomForm from './create-room-form.svelte';
+	import { FormLayout } from '$lib/components/layouts/form-layout';
 
 	export let data;
-	let { supabase } = data;
-	$: ({ supabase } = data);
+	export let form;
 </script>
 
-<Input />
+<FormLayout>
+	<CreateRoomForm data={data.form} message={form?.message} />
+</FormLayout>

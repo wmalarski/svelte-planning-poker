@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { Input } from '$lib/components/ui/input';
+	import InviteForm from './invite-form.svelte';
+	import { FormLayout } from '$lib/components/layouts/form-layout';
 
 	export let data;
-	let { supabase } = data;
-	$: ({ supabase } = data);
+	export let form;
 </script>
 
-<Input />
+<FormLayout>
+	<InviteForm data={data.form} message={form?.message} />
+</FormLayout>

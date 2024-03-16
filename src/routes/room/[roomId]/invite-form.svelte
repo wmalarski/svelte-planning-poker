@@ -7,6 +7,7 @@
 	import type { Output } from 'valibot';
 	import { formSchema, type FormSchema } from './schema';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
+	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
 
 	export let data: SuperValidated<Output<FormSchema>>;
 	export let message: string | undefined;
@@ -20,7 +21,7 @@
 	<form method="POST" use:enhance>
 		<Card.Header class="space-y-1">
 			<Card.Title class="text-2xl">Sign In</Card.Title>
-			<Card.Description>Sign in to create poker planning room</Card.Description>
+			<Card.Description>Sign in to create poker planning session</Card.Description>
 		</Card.Header>
 		<Card.Content class="grid gap-4">
 			<div class="relative">
@@ -33,26 +34,28 @@
 				<span class="text-sm font-medium text-destructive">{message}</span>
 			{/if}
 
-			<Form.Field {form} name="email">
+			<Form.Field {form} name="name">
 				<Form.Control let:attrs>
-					<Form.Label>Email</Form.Label>
-					<Input {...attrs} bind:value={$formData.email} type="email" placeholder="m@example.com" />
+					<Form.Label>Name</Form.Label>
+					<Input {...attrs} bind:value={$formData.name} type="text" />
 				</Form.Control>
 				<Form.Description />
 				<Form.FieldErrors />
 			</Form.Field>
 
-			<Form.Field {form} name="password">
+			<Form.Field {form} name="spectator">
 				<Form.Control let:attrs>
-					<Form.Label>Password</Form.Label>
-					<Input {...attrs} bind:value={$formData.password} type="password" />
+					<div class="flex items-center space-x-2">
+						<Checkbox {...attrs} bind:checked={$formData.spectator} />
+						<Form.Label>View room as spectator</Form.Label>
+					</div>
 				</Form.Control>
 				<Form.Description />
 				<Form.FieldErrors />
 			</Form.Field>
 		</Card.Content>
 		<Card.Footer>
-			<Button class="w-full" type="submit">Sign In</Button>
+			<Button class="w-full" type="submit">Enter</Button>
 		</Card.Footer>
 	</form>
 </Card.Root>

@@ -19,8 +19,8 @@
 <Card.Root>
 	<form method="POST" use:enhance>
 		<Card.Header class="space-y-1">
-			<Card.Title class="text-2xl">Sign In</Card.Title>
-			<Card.Description>Sign in to create poker planning room</Card.Description>
+			<Card.Title class="text-2xl">Create Room</Card.Title>
+			<Card.Description>Create planning poker room</Card.Description>
 		</Card.Header>
 		<Card.Content class="grid gap-4">
 			<div class="relative">
@@ -33,26 +33,26 @@
 				<span class="text-sm font-medium text-destructive">{message}</span>
 			{/if}
 
-			<Form.Field {form} name="email">
+			<Form.Field {form} name="name">
 				<Form.Control let:attrs>
-					<Form.Label>Email</Form.Label>
-					<Input {...attrs} bind:value={$formData.email} type="email" placeholder="m@example.com" />
+					<Form.Label>Name</Form.Label>
+					<Input {...attrs} bind:value={$formData.name} type="text" />
 				</Form.Control>
 				<Form.Description />
 				<Form.FieldErrors />
 			</Form.Field>
 
-			<Form.Field {form} name="password">
+			<Form.Field {form} name="description">
 				<Form.Control let:attrs>
-					<Form.Label>Password</Form.Label>
-					<Input {...attrs} bind:value={$formData.password} type="password" />
+					<Form.Label>Description</Form.Label>
+					<Input {...attrs} bind:value={$formData.description} type="text" />
 				</Form.Control>
 				<Form.Description />
 				<Form.FieldErrors />
 			</Form.Field>
 		</Card.Content>
 		<Card.Footer>
-			<Button class="w-full" type="submit">Sign In</Button>
+			<Button class="w-full" type="submit">Create room</Button>
 		</Card.Footer>
 	</form>
 </Card.Root>
