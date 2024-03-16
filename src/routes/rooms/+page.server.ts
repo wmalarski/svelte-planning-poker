@@ -19,7 +19,9 @@ export const load: PageServerLoad = async ({ locals: { supabase }, parent }) => 
 		superValidate(valibot(formSchema))
 	]);
 
-	return { form, rooms: roomsResult.data || [] };
+	const rooms = roomsResult.data || [];
+
+	return { form, rooms };
 };
 
 export const actions = {
