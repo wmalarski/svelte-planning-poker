@@ -12,21 +12,12 @@ export const load: PageServerLoad = async () => {
 	return { form };
 };
 
-const failure = true;
-
 export const actions = {
 	default: async ({ locals: { supabase }, request, url }) => {
 		const form = await superValidate(request, valibot(formSchema));
 
-		if (failure) {
-			return fail(400, {
-				message: 'Message',
-				success: false
-			});
-		}
-
 		if (!form.valid) {
-			return fail(400, { message: 'Invalid request', success: false });
+			return fail(400, { form, message: 'Invalid request' });
 		}
 
 		const response = await supabase.auth.signUp({
@@ -35,15 +26,10 @@ export const actions = {
 			password: form.data.password
 		});
 
-		console.log({ response });
-
 		if (response.error) {
-			return fail(500, { message: 'Server error. Try again later.', success: false });
+			return fail(500, { form, message: response.error.message });
 		}
 
-		return {
-			message: 'Please check your email for a magic link to log into the website.',
-			success: true
-		};
+		return { form, message: 'Please check your email for a magic link to log into the website.' };
 	}
 } satisfies Actions;

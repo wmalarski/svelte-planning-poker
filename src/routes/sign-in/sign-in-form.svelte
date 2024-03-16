@@ -14,7 +14,7 @@
 
 	const form = superForm(data, { validators: valibotClient(formSchema) });
 
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, submitting } = form;
 </script>
 
 <Card.Root>
@@ -47,7 +47,9 @@
 			</Form.Field>
 		</Card.Content>
 		<Card.Footer class="flex flex-col gap-4">
-			<Button class="w-full" type="submit">Sign In</Button>
+			<Button disabled={$submitting} isLoading={$submitting} class="w-full" type="submit">
+				Sign In
+			</Button>
 			<a class="text-sm" href={paths.signUp}>Sign Up</a>
 		</Card.Footer>
 	</form>

@@ -17,7 +17,7 @@ export const actions = {
 		const form = await superValidate(request, valibot(formSchema));
 
 		if (!form.valid) {
-			return fail(400, { message: 'Invalid request', success: false });
+			return fail(400, { form, message: 'Invalid request' });
 		}
 
 		const response = await supabase.auth.signInWithPassword({
@@ -25,10 +25,8 @@ export const actions = {
 			password: form.data.password
 		});
 
-		console.log({ response });
-
 		if (response.error) {
-			return fail(500, { message: 'Server error. Try again later.', success: false });
+			return fail(500, { form, message: response.error.message });
 		}
 
 		return redirect(302, paths.rooms);

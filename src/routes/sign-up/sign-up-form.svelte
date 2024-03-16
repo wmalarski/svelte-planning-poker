@@ -14,7 +14,7 @@
 
 	const form = superForm(data, { validators: valibotClient(formSchema) });
 
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, submitting } = form;
 </script>
 
 <Card.Root>
@@ -27,7 +27,6 @@
 			{#if message}
 				<span class="text-sm font-medium text-destructive">{message}</span>
 			{/if}
-
 			<Form.Field {form} name="email">
 				<Form.Control let:attrs>
 					<Form.Label>Email</Form.Label>
@@ -47,7 +46,9 @@
 			</Form.Field>
 		</Card.Content>
 		<Card.Footer class="flex flex-col gap-4">
-			<Button class="w-full" type="submit">Create account</Button>
+			<Button disabled={$submitting} isLoading={$submitting} class="w-full" type="submit">
+				Create account
+			</Button>
 			<a class="text-sm" href={paths.signIn}>Sign In</a>
 		</Card.Footer>
 	</form>

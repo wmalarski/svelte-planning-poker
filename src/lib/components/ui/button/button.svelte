@@ -1,15 +1,17 @@
 <script lang="ts">
-	import { Button as ButtonPrimitive } from "bits-ui";
-	import { cn } from "$lib/components/ui/utils.js";
-	import { buttonVariants, type Props, type Events } from "./index.js";
+	import { Button as ButtonPrimitive } from 'bits-ui';
+	import { cn } from '$lib/components/ui/utils.js';
+	import { buttonVariants, type Props, type Events } from './index.js';
+	import { Spinner } from '../spinner';
 
 	type $$Props = Props;
 	type $$Events = Events;
 
-	let className: $$Props["class"] = undefined;
-	export let variant: $$Props["variant"] = "default";
-	export let size: $$Props["size"] = "default";
-	export let builders: $$Props["builders"] = [];
+	let className: $$Props['class'] = undefined;
+	export let variant: $$Props['variant'] = 'default';
+	export let size: $$Props['size'] = 'default';
+	export let builders: $$Props['builders'] = [];
+	export let isLoading: boolean = false;
 	export { className as class };
 </script>
 
@@ -22,4 +24,7 @@
 	on:keydown
 >
 	<slot />
+	{#if isLoading}
+		<Spinner />
+	{/if}
 </ButtonPrimitive.Root>

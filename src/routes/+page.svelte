@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Input } from '$lib/components/ui/input';
 	import { paths } from '$lib/utils/paths';
 
 	export let data;
@@ -19,3 +18,5 @@
 	<li><a href={paths.signUp}>Sign Up</a></li>
 	<li><a href={paths.signUpSuccess}>Sign Up Success</a></li>
 </ul>
+
+<pre>{JSON.stringify(data.session, null, 2)}</pre>

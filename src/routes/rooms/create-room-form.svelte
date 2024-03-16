@@ -13,7 +13,7 @@
 
 	const form = superForm(data, { validators: valibotClient(formSchema) });
 
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, submitting } = form;
 </script>
 
 <Card.Root>
@@ -52,7 +52,9 @@
 			</Form.Field>
 		</Card.Content>
 		<Card.Footer>
-			<Button class="w-full" type="submit">Create room</Button>
+			<Button disabled={$submitting} isLoading={$submitting} class="w-full" type="submit">
+				Create room
+			</Button>
 		</Card.Footer>
 	</form>
 </Card.Root>
