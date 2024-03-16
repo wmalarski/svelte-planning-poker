@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { Input } from '$lib/components/ui/input';
+	import SignInForm from './sign-in-form.svelte';
+	import { FormLayout } from '$lib/components/layouts/form-layout';
 
 	export let data;
-	let { supabase } = data;
-	$: ({ supabase } = data);
+	export let form;
 </script>
 
-<Input />
+<FormLayout>
+	<SignInForm data={data.form} message={form?.message} />
+</FormLayout>

@@ -1,5 +1,5 @@
 import { paths } from '$lib/utils/paths';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { decode } from 'decode-formdata';
 import { superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
@@ -18,7 +18,7 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions = {
-	default: async ({ locals: { supabase }, request, url }) => {
+	default: async ({ locals: { supabase }, request }) => {
 		const form = await request.formData();
 		const parsed = await safeParseAsync(formSchema, decode(form));
 
@@ -26,9 +26,8 @@ export const actions = {
 			return fail(400, { issues: parsed.issues, message: 'Invalid request', success: false });
 		}
 
-		const response = await supabase.auth.signUp({
+		const response = await supabase.auth.signInWithPassword({
 			email: parsed.output.email,
-			options: { emailRedirectTo: `${url.origin}${paths.signUpSuccess}` },
 			password: parsed.output.password
 		});
 
@@ -38,9 +37,6 @@ export const actions = {
 			return fail(500, { message: 'Server error. Try again later.', success: false });
 		}
 
-		return {
-			message: 'Please check your email for a magic link to log into the website.',
-			success: true
-		};
+		return redirect(302, paths.rooms);
 	}
 } satisfies Actions;
