@@ -1,5 +1,16 @@
 <script lang="ts">
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
+
+	export let data;
 </script>
 
-<NavbarLayout>Room</NavbarLayout>
+<NavbarLayout>
+	<pre class="max-w-xl overflow-clip">{JSON.stringify(
+			{
+				session: data.session,
+				room: data.room
+			},
+			null,
+			2
+		)}</pre>
+</NavbarLayout>

@@ -8,9 +8,11 @@
 	import { formSchema, type FormSchema } from './schema';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
+	import type { RoomRow } from '$lib/types/models';
 
 	export let data: SuperValidated<Output<FormSchema>>;
 	export let message: string | undefined;
+	export let room: RoomRow;
 
 	const form = superForm(data, { validators: valibotClient(formSchema) });
 
@@ -20,7 +22,7 @@
 <Card.Root>
 	<form method="POST" use:enhance>
 		<Card.Header class="space-y-1">
-			<Card.Title tag="h2" class="text-2xl">Join</Card.Title>
+			<Card.Title tag="h2" class="text-2xl">Join {room.name}</Card.Title>
 			<Card.Description>Join planning poker room</Card.Description>
 		</Card.Header>
 		<Card.Content class="grid gap-4">

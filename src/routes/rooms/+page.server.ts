@@ -7,7 +7,13 @@ import type { Actions, PageServerLoad } from './$types';
 
 import { formSchema } from './schema';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ parent }) => {
+	const { session } = await parent();
+
+	if (!session) {
+		return redirect(302, paths.signIn);
+	}
+
 	const form = await superValidate(valibot(formSchema));
 	return { form };
 };

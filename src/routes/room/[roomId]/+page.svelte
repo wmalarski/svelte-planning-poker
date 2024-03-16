@@ -7,5 +7,5 @@
 </script>
 
 <FormLayout>
-	<InviteForm data={data.form} message={form?.message} />
+	<InviteForm data={data.form} message={form?.message} room={data.room} />
 </FormLayout>
