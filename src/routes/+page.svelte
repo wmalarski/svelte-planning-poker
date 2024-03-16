@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Input } from '$lib/components/ui/input';
+	import { paths } from '$lib/utils/paths';
 
 	export let data;
 	let { supabase } = data;
@@ -10,8 +11,11 @@
 
 <p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 
-<a href="/sign-up">Sign Up</a>
-
-<a href="/sign-in">Sign In</a>
-
-<Input />
+<ul>
+	<li><a href={paths.poker('111')}>Poker</a></li>
+	<li><a href={paths.room('111')}>Room</a></li>
+	<li><a href={paths.rooms}>Rooms</a></li>
+	<li><a href={paths.signIn}>Sign In</a></li>
+	<li><a href={paths.signUp}>Sign Up</a></li>
+	<li><a href={paths.signUpSuccess}>Sign Up Success</a></li>
+</ul>

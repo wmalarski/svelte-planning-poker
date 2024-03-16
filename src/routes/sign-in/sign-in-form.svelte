@@ -7,6 +7,7 @@
 	import type { Output } from 'valibot';
 	import { formSchema, type FormSchema } from './schema';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
+	import { paths } from '$lib/utils/paths';
 
 	export let data: SuperValidated<Output<FormSchema>>;
 	export let message: string | undefined;
@@ -23,12 +24,6 @@
 			<Card.Description>Sign in to create poker planning room</Card.Description>
 		</Card.Header>
 		<Card.Content class="grid gap-4">
-			<div class="relative">
-				<div class="absolute inset-0 flex items-center">
-					<span class="w-full border-t" />
-				</div>
-			</div>
-
 			{#if message}
 				<span class="text-sm font-medium text-destructive">{message}</span>
 			{/if}
@@ -51,8 +46,9 @@
 				<Form.FieldErrors />
 			</Form.Field>
 		</Card.Content>
-		<Card.Footer>
+		<Card.Footer class="flex flex-col gap-4">
 			<Button class="w-full" type="submit">Sign In</Button>
+			<a class="text-sm" href={paths.signUp}>Sign Up</a>
 		</Card.Footer>
 	</form>
 </Card.Root>
