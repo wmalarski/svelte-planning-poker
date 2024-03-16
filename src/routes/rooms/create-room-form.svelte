@@ -23,12 +23,6 @@
 			<Card.Description>Create planning poker room</Card.Description>
 		</Card.Header>
 		<Card.Content class="grid gap-4">
-			<div class="relative">
-				<div class="absolute inset-0 flex items-center">
-					<span class="w-full border-t" />
-				</div>
-			</div>
-
 			{#if message}
 				<span class="text-sm font-medium text-destructive">{message}</span>
 			{/if}

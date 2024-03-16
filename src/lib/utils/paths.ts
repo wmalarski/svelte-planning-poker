@@ -5,6 +5,7 @@ export const paths = {
 	room: (roomId: string) => `/room/${roomId}`,
 	rooms: '/rooms',
 	signIn: '/sign-in',
+	signOut: '/api/auth/sign-out',
 	signUp: '/sign-up',
 	signUpSuccess: '/sign-up/success'
 };

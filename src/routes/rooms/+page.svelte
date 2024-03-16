@@ -8,4 +8,5 @@
 
 <NavbarLayout>
 	<CreateRoomForm data={data.form} message={form?.message} />
+	<pre class="max-w-md overflow-clip">{JSON.stringify(data.session, null, 2)}</pre>
 </NavbarLayout>
