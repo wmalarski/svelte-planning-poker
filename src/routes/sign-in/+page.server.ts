@@ -1,34 +1,28 @@
 import { paths } from '$lib/utils/paths';
 import { fail, redirect } from '@sveltejs/kit';
-import { decode } from 'decode-formdata';
 import { superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
-import { type BaseSchema, type Input, type Output, safeParseAsync } from 'valibot';
 
 import type { Actions, PageServerLoad } from './$types';
 
-import { type FormSchema, formSchema } from './schema';
+import { formSchema } from './schema';
 
 export const load: PageServerLoad = async () => {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const schema = formSchema as any as BaseSchema<Input<FormSchema>, Output<FormSchema>>;
-	return {
-		form: await superValidate(valibot(schema))
-	};
+	const form = await superValidate(valibot(formSchema));
+	return { form };
 };
 
 export const actions = {
 	default: async ({ locals: { supabase }, request }) => {
-		const form = await request.formData();
-		const parsed = await safeParseAsync(formSchema, decode(form));
+		const form = await superValidate(request, valibot(formSchema));
 
-		if (!parsed.success) {
-			return fail(400, { issues: parsed.issues, message: 'Invalid request', success: false });
+		if (!form.valid) {
+			return fail(400, { message: 'Invalid request', success: false });
 		}
 
 		const response = await supabase.auth.signInWithPassword({
-			email: parsed.output.email,
-			password: parsed.output.password
+			email: form.data.email,
+			password: form.data.password
 		});
 
 		console.log({ response });

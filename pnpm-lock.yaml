@@ -17,9 +17,6 @@ dependencies:
   clsx:
     specifier: ^2.1.0
     version: 2.1.0
-  decode-formdata:
-    specifier: ^0.6.0
-    version: 0.6.0
   formsnap:
     specifier: ^0.5.1
     version: 0.5.1(svelte@5.0.0-next.79)(sveltekit-superforms@2.9.0)
@@ -1472,10 +1469,6 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
-
-  /decode-formdata@0.6.0:
-    resolution: {integrity: sha512-pdrU+S6J0oEGn91IekC6oQfK6VyW41dwlJktTG1r6yPoEsexhEReffJE4UPiO2zipvz+4J7SwzfLjlymPLxTMQ==}
-    dev: false
 
   /deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
