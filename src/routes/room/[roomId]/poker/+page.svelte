@@ -8,7 +8,8 @@
 	<pre class="max-w-xl overflow-clip">{JSON.stringify(
 			{
 				session: data.session,
-				room: data.room
+				room: data.room,
+				player: data.player
 			},
 			null,
 			2
