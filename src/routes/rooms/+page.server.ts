@@ -7,15 +7,19 @@ import type { Actions, PageServerLoad } from './$types';
 
 import { formSchema } from './schema';
 
-export const load: PageServerLoad = async ({ parent }) => {
+export const load: PageServerLoad = async ({ locals: { supabase }, parent }) => {
 	const { session } = await parent();
 
 	if (!session) {
 		return redirect(302, paths.signIn);
 	}
 
-	const form = await superValidate(valibot(formSchema));
-	return { form };
+	const [roomsResult, form] = await Promise.all([
+		supabase.from('rooms').select().eq('owner_id', session.user.id).range(0, 100),
+		superValidate(valibot(formSchema))
+	]);
+
+	return { form, rooms: roomsResult.data || [] };
 };
 
 export const actions = {
