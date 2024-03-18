@@ -3,14 +3,8 @@
 	import { sessionContext } from '$lib/contexts/session';
 	import { Button } from '$lib/components/ui/button';
 	import { supabaseContext } from '$lib/contexts/supabase';
-	import { enhance } from '$app/forms';
 
 	const session = sessionContext.get();
-	const supabase = supabaseContext.get();
-
-	const onSignOut = () => {
-		$supabase.auth.signOut();
-	};
 </script>
 
 <header class="w-full flex justify-between p-4 border-b-[1px] items-center">
