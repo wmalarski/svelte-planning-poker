@@ -7,8 +7,12 @@
 	import { formSchema, type FormSchema } from './schema';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 
-	export let data: SuperValidated<Output<FormSchema>>;
-	export let message: string | undefined;
+	type Props = {
+		data: SuperValidated<Output<FormSchema>>;
+		message?: string;
+	};
+
+	const { data, message }: Props = $props();
 
 	const form = superForm(data, { validators: valibotClient(formSchema) });
 

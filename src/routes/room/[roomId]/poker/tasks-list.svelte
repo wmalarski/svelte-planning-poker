@@ -7,10 +7,14 @@
 	import type { Output } from 'valibot';
 	import { sessionContext } from '$lib/contexts/session';
 
-	export let room: RoomRow;
-	export let tasks: TaskRow[];
-	export let form: SuperValidated<Output<FormSchema>>;
-	export let errorMessage: string | undefined;
+	type Props = {
+		room: RoomRow;
+		tasks: TaskRow[];
+		form: SuperValidated<Output<FormSchema>>;
+		errorMessage?: string;
+	};
+
+	const { errorMessage, form, room, tasks }: Props = $props();
 
 	const session = sessionContext.get();
 </script>

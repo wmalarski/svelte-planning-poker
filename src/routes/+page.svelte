@@ -1,8 +1,13 @@
 <script lang="ts">
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
 	import { paths } from '$lib/utils/paths';
+	import type { PageData } from './$types';
 
-	export let data;
+	type Props = {
+		data: PageData;
+	};
+
+	const { data }: Props = $props();
 </script>
 
 <NavbarLayout>

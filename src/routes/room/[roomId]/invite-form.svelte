@@ -10,9 +10,13 @@
 	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
 	import type { RoomRow } from '$lib/types/models';
 
-	export let data: SuperValidated<Output<FormSchema>>;
-	export let message: string | undefined;
-	export let room: RoomRow;
+	type Props = {
+		data: SuperValidated<Output<FormSchema>>;
+		message: string | undefined;
+		room: RoomRow;
+	};
+
+	const { data, message, room }: Props = $props();
 
 	const form = superForm(data, { validators: valibotClient(formSchema) });
 

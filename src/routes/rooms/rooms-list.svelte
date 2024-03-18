@@ -4,7 +4,11 @@
 	import type { RoomRow } from '$lib/types/models';
 	import { paths } from '$lib/utils/paths';
 
-	export let rooms: RoomRow[];
+	type Props = {
+		rooms: RoomRow[];
+	};
+
+	const { rooms }: Props = $props();
 </script>
 
 <Card.Root>

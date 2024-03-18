@@ -2,8 +2,15 @@
 	import { paths } from '$lib/utils/paths';
 	import { sessionContext } from '$lib/contexts/session';
 	import { Button } from '$lib/components/ui/button';
+	import { supabaseContext } from '$lib/contexts/supabase';
+	import { enhance } from '$app/forms';
 
 	const session = sessionContext.get();
+	const supabase = supabaseContext.get();
+
+	const onSignOut = () => {
+		$supabase.auth.signOut();
+	};
 </script>
 
 <header class="w-full flex justify-between p-4 border-b-[1px] items-center">
@@ -23,7 +30,7 @@
 	</div>
 	{#if $session}
 		<form method="POST" action={paths.signOut}>
-			<Button variant="secondary">Sign Out</Button>
+			<Button type="submit" variant="secondary">Sign Out</Button>
 		</form>
 	{/if}
 </header>

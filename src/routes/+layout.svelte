@@ -6,15 +6,25 @@
 	import type { Database } from '$lib/types/supabase';
 	import { supabaseContext } from '$lib/contexts/supabase';
 
-	export let data;
+	import type { PageData } from './$types';
+
+	type Props = {
+		data: PageData;
+	};
+
+	const { data }: Props = $props();
 
 	const session = writable<Session | null>();
-	$: session.set(data.session);
 	sessionContext.set(session);
+	$effect(() => {
+		session.set(data.session);
+	});
 
 	const supabase = writable<SupabaseClient<Database>>();
-	$: supabase.set(data.supabase);
 	supabaseContext.set(supabase);
+	$effect(() => {
+		supabase.set(data.supabase);
+	});
 </script>
 
 <slot />

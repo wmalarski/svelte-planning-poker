@@ -2,9 +2,14 @@
 	import CreateRoomForm from './create-room-form.svelte';
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
 	import RoomsList from './rooms-list.svelte';
+	import type { PageData, ActionData } from './$types';
 
-	export let data;
-	export let form;
+	type Props = {
+		data: PageData;
+		form: ActionData;
+	};
+
+	const { data, form }: Props = $props();
 </script>
 
 <NavbarLayout>
