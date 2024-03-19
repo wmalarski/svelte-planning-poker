@@ -8,7 +8,10 @@ import type { Actions, PageServerLoad } from './$types';
 
 import { formSchema } from './schema';
 
-export const load: PageServerLoad = async ({ locals: { supabase }, parent }) => {
+export const load: PageServerLoad = async ({
+	locals: { supabase },
+	parent
+}) => {
 	const { session } = await parent();
 
 	if (!session) {

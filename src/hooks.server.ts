@@ -1,7 +1,10 @@
 import type { Database } from '$lib/types/supabase';
 import type { Handle } from '@sveltejs/kit';
 
-import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
+import {
+	PUBLIC_SUPABASE_ANON_KEY,
+	PUBLIC_SUPABASE_URL
+} from '$env/static/public';
 import { createServerClient } from '@supabase/ssr';
 
 export const handle: Handle = ({ event, resolve }) => {

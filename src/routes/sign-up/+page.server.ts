@@ -30,6 +30,10 @@ export const actions = {
 			return fail(500, { form, message: response.error.message });
 		}
 
-		return { form, message: 'Please check your email for a magic link to log into the website.' };
+		return {
+			form,
+			message:
+				'Please check your email for a magic link to log into the website.'
+		};
 	}
 } satisfies Actions;

@@ -1,7 +1,9 @@
 <script lang="ts">
-	import InviteForm from './invite-form.svelte';
 	import { FormLayout } from '$lib/components/layouts/form-layout';
-	import type { PageData, ActionData } from './$types';
+
+	import type { ActionData, PageData } from './$types';
+
+	import InviteForm from './invite-form.svelte';
 
 	type Props = {
 		data: PageData;

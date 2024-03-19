@@ -6,7 +6,10 @@ import { type FormSchema, formSchema } from '../../routes/room/[roomId]/schema';
 
 const PLAYER_SETTINGS_COOKIE_KEY = 'player-settings';
 
-export const setPlayerSettingsCookie = (data: Output<FormSchema>, cookies: Cookies) => {
+export const setPlayerSettingsCookie = (
+	data: Output<FormSchema>,
+	cookies: Cookies
+) => {
 	const value = JSON.stringify(data);
 
 	cookies.set(PLAYER_SETTINGS_COOKIE_KEY, value, {

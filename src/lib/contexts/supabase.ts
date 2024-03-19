@@ -4,4 +4,5 @@ import type { Writable } from 'svelte/store';
 
 import { createContext } from '$lib/utils/context';
 
-export const supabaseContext = createContext<Writable<SupabaseClient<Database>>>();
+export const supabaseContext =
+	createContext<Writable<SupabaseClient<Database>>>();

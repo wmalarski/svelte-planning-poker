@@ -5,7 +5,11 @@ type SelectTasksArgs = WithSupabase<{
 }>;
 
 export const selectTasks = async ({ roomId, supabase }: SelectTasksArgs) => {
-	const tasksResult = await supabase.from('tasks').select().eq('room_id', roomId).range(0, 100);
+	const tasksResult = await supabase
+		.from('tasks')
+		.select()
+		.eq('room_id', roomId)
+		.range(0, 100);
 
 	return tasksResult.data || [];
 };

@@ -1,29 +1,21 @@
 /** @type { import("eslint").Linter.Config } */
 module.exports = {
-	root: true,
-	extends: [
-		'eslint:recommended',
-		"plugin:import/typescript",
-		"plugin:jsx-a11y/recommended",
-		"plugin:promise/recommended",
-		'plugin:@typescript-eslint/recommended',
-		'plugin:svelte/recommended',
-		"plugin:perfectionist/recommended-natural",
-		"plugin:tailwindcss/recommended",
-		'plugin:prettier/recommended',
-	],
-	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint', "perfectionist"],
-	parserOptions: {
-		sourceType: 'module',
-		ecmaVersion: 2020,
-		extraFileExtensions: ['.svelte']
-	},
 	env: {
 		browser: true,
 		es2017: true,
 		node: true
 	},
+	extends: [
+		'eslint:recommended',
+		'plugin:import/typescript',
+		'plugin:jsx-a11y/recommended',
+		'plugin:promise/recommended',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:svelte/recommended',
+		'plugin:perfectionist/recommended-natural',
+		'plugin:tailwindcss/recommended',
+		'plugin:prettier/recommended'
+	],
 	overrides: [
 		{
 			files: ['*.svelte'],
@@ -33,26 +25,34 @@ module.exports = {
 			}
 		}
 	],
+	parser: '@typescript-eslint/parser',
+	parserOptions: {
+		ecmaVersion: 2020,
+		extraFileExtensions: ['.svelte'],
+		sourceType: 'module'
+	},
+	plugins: ['@typescript-eslint', 'perfectionist'],
+	root: true,
 	rules: {
-		"no-await-in-loop": "error",
-		"no-constant-binary-expression": "error",
-		"no-self-compare": "error",
-		"no-use-before-define": "error",
-		"curly": "error",
-		"eqeqeq": ["error", "smart"],
-		"max-params": ["error", 3],
-		"no-console": "warn",
-		"no-lonely-if": "error",
-		"no-unneeded-ternary": "error",
-		"prefer-arrow-callback": "error",
-		"prefer-const": "error",
-		"require-await": "error",
-		"@typescript-eslint/array-type": "error",
-		"@typescript-eslint/consistent-type-imports": "error",
-		"@typescript-eslint/consistent-type-definitions": ["error", "type"],
-		"@typescript-eslint/no-unused-expressions": "error",
-		"prettier/prettier": ["error", { "endOfLine": "auto" }],
-		"tailwindcss/no-custom-classname": "off",
-		"jsx-a11y/label-has-associated-control": "off"	
+		'@typescript-eslint/array-type': 'error',
+		'@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+		'@typescript-eslint/consistent-type-imports': 'error',
+		'@typescript-eslint/no-unused-expressions': 'error',
+		curly: 'error',
+		eqeqeq: ['error', 'smart'],
+		'jsx-a11y/label-has-associated-control': 'off',
+		'max-params': ['error', 3],
+		'no-await-in-loop': 'error',
+		'no-console': 'warn',
+		'no-constant-binary-expression': 'error',
+		'no-lonely-if': 'error',
+		'no-self-compare': 'error',
+		'no-unneeded-ternary': 'error',
+		'no-use-before-define': 'error',
+		'prefer-arrow-callback': 'error',
+		'prefer-const': 'error',
+		'prettier/prettier': ['error', { endOfLine: 'auto' }],
+		'require-await': 'error',
+		'tailwindcss/no-custom-classname': 'off'
 	}
 };

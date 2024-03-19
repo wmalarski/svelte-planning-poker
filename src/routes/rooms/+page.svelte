@@ -1,8 +1,10 @@
 <script lang="ts">
-	import CreateRoomForm from './create-room-form.svelte';
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
+
+	import type { ActionData, PageData } from './$types';
+
+	import CreateRoomForm from './create-room-form.svelte';
 	import RoomsList from './rooms-list.svelte';
-	import type { PageData, ActionData } from './$types';
 
 	type Props = {
 		data: PageData;

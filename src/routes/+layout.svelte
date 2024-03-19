@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { sessionContext } from '$lib/contexts/session';
-	import { writable } from 'svelte/store';
-	import type { Session, SupabaseClient } from '@supabase/supabase-js';
-	import '../app.css';
 	import type { Database } from '$lib/types/supabase';
+	import type { Session, SupabaseClient } from '@supabase/supabase-js';
+
+	import { sessionContext } from '$lib/contexts/session';
 	import { supabaseContext } from '$lib/contexts/supabase';
+	import { writable } from 'svelte/store';
 
 	import type { PageData } from './$types';
+
+	import '../app.css';
 
 	type Props = {
 		data: PageData;

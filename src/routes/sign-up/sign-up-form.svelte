@@ -1,13 +1,15 @@
 <script lang="ts">
+	import type { Output } from 'valibot';
+
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
-	import { superForm, type SuperValidated } from 'sveltekit-superforms';
-	import type { Output } from 'valibot';
-	import { formSchema, type FormSchema } from './schema';
-	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { paths } from '$lib/utils/paths';
+	import { type SuperValidated, superForm } from 'sveltekit-superforms';
+	import { valibotClient } from 'sveltekit-superforms/adapters';
+
+	import { type FormSchema, formSchema } from './schema';
 
 	type Props = {
 		data: SuperValidated<Output<FormSchema>>;
@@ -18,14 +20,16 @@
 
 	const form = superForm(data, { validators: valibotClient(formSchema) });
 
-	const { form: formData, enhance, submitting } = form;
+	const { enhance, form: formData, submitting } = form;
 </script>
 
 <Card.Root>
 	<form method="POST" use:enhance>
 		<Card.Header class="space-y-1">
-			<Card.Title tag="h2" class="text-2xl">Create an account</Card.Title>
-			<Card.Description>Enter your email below to create your account</Card.Description>
+			<Card.Title class="text-2xl" tag="h2">Create an account</Card.Title>
+			<Card.Description
+				>Enter your email below to create your account</Card.Description
+			>
 		</Card.Header>
 		<Card.Content class="grid gap-4">
 			{#if message}
@@ -34,7 +38,12 @@
 			<Form.Field {form} name="email">
 				<Form.Control let:attrs>
 					<Form.Label>Email</Form.Label>
-					<Input {...attrs} bind:value={$formData.email} type="email" placeholder="m@example.com" />
+					<Input
+						{...attrs}
+						bind:value={$formData.email}
+						placeholder="m@example.com"
+						type="email"
+					/>
 				</Form.Control>
 				<Form.Description />
 				<Form.FieldErrors />
@@ -50,7 +59,12 @@
 			</Form.Field>
 		</Card.Content>
 		<Card.Footer class="flex flex-col gap-4">
-			<Button disabled={$submitting} isLoading={$submitting} class="w-full" type="submit">
+			<Button
+				class="w-full"
+				disabled={$submitting}
+				isLoading={$submitting}
+				type="submit"
+			>
 				Create account
 			</Button>
 			<a class="text-sm" href={paths.signIn}>Sign In</a>

@@ -1,7 +1,9 @@
 <script lang="ts">
-	import SignUpForm from './sign-up-form.svelte';
 	import { FormLayout } from '$lib/components/layouts/form-layout';
-	import type { PageData, ActionData } from './$types';
+
+	import type { ActionData, PageData } from './$types';
+
+	import SignUpForm from './sign-up-form.svelte';
 
 	type Props = {
 		data: PageData;

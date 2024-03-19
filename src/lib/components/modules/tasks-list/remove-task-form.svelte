@@ -1,8 +1,9 @@
 <script lang="ts">
+	import type { EventHandler } from 'svelte/elements';
+
 	import { Button } from '$lib/components/ui/button';
 	import { supabaseContext } from '$lib/contexts/supabase';
 	import { deleteTask } from '$lib/services/tasks';
-	import type { EventHandler } from 'svelte/elements';
 
 	type Props = {
 		taskId: string;
@@ -12,13 +13,15 @@
 
 	const supabase = supabaseContext.get();
 
-	const onSubmit: EventHandler<SubmitEvent, HTMLFormElement> = async (event) => {
+	const onSubmit: EventHandler<SubmitEvent, HTMLFormElement> = async (
+		event
+	) => {
 		event.preventDefault();
 
-		await deleteTask({ taskId, supabase: $supabase });
+		await deleteTask({ supabase: $supabase, taskId });
 	};
 </script>
 
 <form on:submit={onSubmit}>
-	<Button variant="secondary" type="submit">Remove</Button>
+	<Button type="submit" variant="secondary">Remove</Button>
 </form>

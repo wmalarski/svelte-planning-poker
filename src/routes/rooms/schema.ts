@@ -16,4 +16,7 @@ const schema = object({
 export type FormSchema = typeof schema;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const formSchema = schema as any as BaseSchema<Input<FormSchema>, Output<FormSchema>>;
+export const formSchema = schema as any as BaseSchema<
+	Input<FormSchema>,
+	Output<FormSchema>
+>;

@@ -1,8 +1,7 @@
 <script>
-	import { paths } from '$lib/utils/paths';
-	import { sessionContext } from '$lib/contexts/session';
 	import { Button } from '$lib/components/ui/button';
-	import { supabaseContext } from '$lib/contexts/supabase';
+	import { sessionContext } from '$lib/contexts/session';
+	import { paths } from '$lib/utils/paths';
 
 	const session = sessionContext.get();
 </script>
@@ -23,7 +22,7 @@
 		{/if}
 	</div>
 	{#if $session}
-		<form method="POST" action={paths.signOut}>
+		<form action={paths.signOut} method="POST">
 			<Button type="submit" variant="secondary">Sign Out</Button>
 		</form>
 	{/if}

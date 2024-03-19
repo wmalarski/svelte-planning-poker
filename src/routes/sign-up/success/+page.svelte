@@ -1,13 +1,13 @@
 <script lang="ts">
-	import * as Card from '$lib/components/ui/card';
 	import { FormLayout } from '$lib/components/layouts/form-layout';
+	import * as Card from '$lib/components/ui/card';
 	import { paths } from '$lib/utils/paths';
 </script>
 
 <FormLayout>
 	<Card.Root>
 		<Card.Header class="space-y-1">
-			<Card.Title tag="h2" class="text-2xl">Success</Card.Title>
+			<Card.Title class="text-2xl" tag="h2">Success</Card.Title>
 		</Card.Header>
 		<Card.Content class="grid gap-4">
 			Congratulations! your account has been successfully created

@@ -22,5 +22,9 @@ type InsertRoomArgs = WithSupabase<{
 }>;
 
 export const insertRoom = ({ description, name, supabase }: InsertRoomArgs) => {
-	return supabase.from('rooms').insert({ config: {}, description, name }).select().single();
+	return supabase
+		.from('rooms')
+		.insert({ config: {}, description, name })
+		.select()
+		.single();
 };

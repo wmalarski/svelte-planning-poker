@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { TaskRow } from '$lib/types/models';
+
 	import RemoveTaskForm from './remove-task-form.svelte';
 
 	type Props = {

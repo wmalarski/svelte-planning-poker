@@ -1,10 +1,11 @@
 <script lang="ts">
+	import type { EventHandler } from 'svelte/elements';
+
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import { supabaseContext } from '$lib/contexts/supabase';
 	import { insertTask } from '$lib/services/tasks';
-	import type { EventHandler } from 'svelte/elements';
 
 	type Props = {
 		roomId: string;
@@ -14,7 +15,9 @@
 
 	const supabase = supabaseContext.get();
 
-	const onSubmit: EventHandler<SubmitEvent, HTMLFormElement> = async (event) => {
+	const onSubmit: EventHandler<SubmitEvent, HTMLFormElement> = async (
+		event
+	) => {
 		event.preventDefault();
 
 		const form = new FormData(event.currentTarget);
@@ -27,7 +30,7 @@
 <form on:submit={onSubmit}>
 	<fieldset>
 		<Label for="content">Content</Label>
-		<Input name="content" id="content" type="text" />
+		<Input id="content" name="content" type="text" />
 	</fieldset>
 	<Button class="w-full" type="submit">Add</Button>
 </form>

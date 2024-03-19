@@ -1,4 +1,10 @@
-export type Json = { [key: string]: Json | undefined } | Json[] | boolean | null | number | string;
+export type Json =
+	| { [key: string]: Json | undefined }
+	| Json[]
+	| boolean
+	| null
+	| number
+	| string;
 
 export type Database = {
 	public: {
@@ -128,7 +134,9 @@ export type Tables<
 		: never;
 
 export type TablesInsert<
-	PublicTableNameOrOptions extends { schema: keyof Database } | keyof Database['public']['Tables'],
+	PublicTableNameOrOptions extends
+		| { schema: keyof Database }
+		| keyof Database['public']['Tables'],
 	TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
 		? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
 		: never = never
@@ -147,7 +155,9 @@ export type TablesInsert<
 		: never;
 
 export type TablesUpdate<
-	PublicTableNameOrOptions extends { schema: keyof Database } | keyof Database['public']['Tables'],
+	PublicTableNameOrOptions extends
+		| { schema: keyof Database }
+		| keyof Database['public']['Tables'],
 	TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
 		? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
 		: never = never
@@ -166,7 +176,9 @@ export type TablesUpdate<
 		: never;
 
 export type Enums<
-	PublicEnumNameOrOptions extends { schema: keyof Database } | keyof Database['public']['Enums'],
+	PublicEnumNameOrOptions extends
+		| { schema: keyof Database }
+		| keyof Database['public']['Enums'],
 	EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
 		? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
 		: never = never

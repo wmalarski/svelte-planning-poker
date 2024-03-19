@@ -1,14 +1,16 @@
 <script lang="ts">
+	import type { RoomRow } from '$lib/types/models';
+	import type { Output } from 'valibot';
+
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
+	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
 	import * as Form from '$lib/components/ui/form';
 	import { Input } from '$lib/components/ui/input';
-	import { superForm, type SuperValidated } from 'sveltekit-superforms';
-	import type { Output } from 'valibot';
-	import { formSchema, type FormSchema } from './schema';
+	import { type SuperValidated, superForm } from 'sveltekit-superforms';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
-	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
-	import type { RoomRow } from '$lib/types/models';
+
+	import { type FormSchema, formSchema } from './schema';
 
 	type Props = {
 		data: SuperValidated<Output<FormSchema>>;
@@ -20,13 +22,13 @@
 
 	const form = superForm(data, { validators: valibotClient(formSchema) });
 
-	const { form: formData, enhance, submitting } = form;
+	const { enhance, form: formData, submitting } = form;
 </script>
 
 <Card.Root>
 	<form method="POST" use:enhance>
 		<Card.Header class="space-y-1">
-			<Card.Title tag="h2" class="text-2xl">Join {room.name}</Card.Title>
+			<Card.Title class="text-2xl" tag="h2">Join {room.name}</Card.Title>
 			<Card.Description>Join planning poker room</Card.Description>
 		</Card.Header>
 		<Card.Content class="grid gap-4">
@@ -55,7 +57,12 @@
 			</Form.Field>
 		</Card.Content>
 		<Card.Footer>
-			<Button disabled={$submitting} isLoading={$submitting} class="w-full" type="submit">
+			<Button
+				class="w-full"
+				disabled={$submitting}
+				isLoading={$submitting}
+				type="submit"
+			>
 				Enter
 			</Button>
 		</Card.Footer>
