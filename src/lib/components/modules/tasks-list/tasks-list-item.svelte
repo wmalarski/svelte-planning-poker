@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { sessionContext } from '$lib/contexts/session';
 	import type { TaskRow } from '$lib/types/models';
 
 	import RemoveTaskForm from './remove-task-form.svelte';
 
 	type Props = {
-		task: TaskRow;
 		isOwner: boolean;
+		task: TaskRow;
 	};
 
-	const { task, isOwner }: Props = $props();
+	const { isOwner, task }: Props = $props();
 </script>
 
 <li class="flex flex-col gap-2 p-3">

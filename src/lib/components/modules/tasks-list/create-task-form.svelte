@@ -23,8 +23,6 @@
 		const form = new FormData(event.currentTarget);
 		const content = form.get('content') as string;
 
-		console.log('$supabase', supabase());
-
 		await insertTask({ content, roomId, supabase: supabase() });
 	};
 </script>

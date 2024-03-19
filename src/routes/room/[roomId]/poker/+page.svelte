@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
-	import TasksList from '$lib/components/modules/tasks-list/tasks-list.svelte';
-	import { createTasksState } from '$lib/components/modules/tasks-list/create-tasks-state.svelte';
+	import PlayerList from '$lib/components/modules/player-list/player-list.svelte';
 	import { createPlayersState } from '$lib/components/modules/player-list/player-list-state.svelte';
+	import { createTasksState } from '$lib/components/modules/tasks-list/create-tasks-state.svelte';
+	import TasksList from '$lib/components/modules/tasks-list/tasks-list.svelte';
 
 	import type { PageData } from './$types';
-	import PlayerList from '$lib/components/modules/player-list/player-list.svelte';
 
 	type Props = {
 		data: PageData;
@@ -31,10 +31,10 @@
 		{JSON.stringify(
 			{
 				player: data.player,
+				players: playersStore.players,
 				room: data.room,
 				session: data.session,
-				tasks: taskStore.tasks,
-				players: playersStore.players
+				tasks: taskStore.tasks
 			},
 			null,
 			2

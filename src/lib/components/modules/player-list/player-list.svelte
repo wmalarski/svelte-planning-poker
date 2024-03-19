@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { RoomRow, TaskRow } from '$lib/types/models';
-
 	import * as Card from '$lib/components/ui/card';
+
 	import type { PlayerState } from './player-list-state.svelte';
 
 	type Props = {
