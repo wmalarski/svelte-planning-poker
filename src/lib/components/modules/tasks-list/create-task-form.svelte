@@ -23,7 +23,9 @@
 		const form = new FormData(event.currentTarget);
 		const content = form.get('content') as string;
 
-		await insertTask({ content, roomId, supabase: $supabase });
+		console.log('$supabase', supabase());
+
+		await insertTask({ content, roomId, supabase: supabase() });
 	};
 </script>
 

@@ -11,7 +11,7 @@
 		<h1 class="text-3xl font-semibold">
 			<a href={paths.home}>Planning poker</a>
 		</h1>
-		{#if $session}
+		{#if session()}
 			<nav>
 				<ul>
 					<li>
@@ -21,7 +21,7 @@
 			</nav>
 		{/if}
 	</div>
-	{#if $session}
+	{#if session()}
 		<form action={paths.signOut} method="POST">
 			<Button type="submit" variant="secondary">Sign Out</Button>
 		</form>

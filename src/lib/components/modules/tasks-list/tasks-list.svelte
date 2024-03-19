@@ -24,7 +24,7 @@
 		<Card.Title class="text-2xl" tag="h2">List of tasks</Card.Title>
 	</Card.Header>
 	<Card.Content class="grid gap-4">
-		{#if $session && $session.user.id === room.owner_id}
+		{#if session()?.user.id === room.owner_id}
 			<CreateTaskForm roomId={room.id} />
 		{/if}
 		<ul>

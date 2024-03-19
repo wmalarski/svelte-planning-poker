@@ -18,7 +18,7 @@
 	) => {
 		event.preventDefault();
 
-		await deleteTask({ supabase: $supabase, taskId });
+		await deleteTask({ supabase: supabase(), taskId });
 	};
 </script>
 
