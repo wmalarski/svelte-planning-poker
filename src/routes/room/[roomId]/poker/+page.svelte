@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
 	import TasksList from '$lib/components/modules/tasks-list/tasks-list.svelte';
-	import type { PageData, ActionData } from './$types';
+	import type { PageData } from './$types';
 
 	type Props = {
 		data: PageData;

@@ -1,3 +1,4 @@
+import { insertRoom, selectsRoom } from '$lib/services/rooms';
 import { paths } from '$lib/utils/paths';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
@@ -15,7 +16,7 @@ export const load: PageServerLoad = async ({ locals: { supabase }, parent }) => 
 	}
 
 	const [roomsResult, form] = await Promise.all([
-		supabase.from('rooms').select().eq('owner_id', session.user.id).range(0, 100),
+		selectsRoom({ ownerId: session.user.id, supabase }),
 		superValidate(valibot(formSchema))
 	]);
 
@@ -32,15 +33,11 @@ export const actions = {
 			return fail(400, { form, message: 'Invalid request' });
 		}
 
-		const response = await supabase
-			.from('rooms')
-			.insert({
-				config: {},
-				description: form.data.description,
-				name: form.data.name
-			})
-			.select()
-			.single();
+		const response = await insertRoom({
+			description: form.data.description,
+			name: form.data.name,
+			supabase
+		});
 
 		if (response.error) {
 			return fail(500, { form, message: response.error.message });

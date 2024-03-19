@@ -1,3 +1,4 @@
+import { getPlayerSettingsCookie, setPlayerSettingsCookie } from '$lib/services/player-settings';
 import { paths } from '$lib/utils/paths';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
@@ -5,7 +6,6 @@ import { valibot } from 'sveltekit-superforms/adapters';
 
 import type { Actions, PageServerLoad } from './$types';
 
-import { getPlayerSettingsCookie, setPlayerSettingsCookie } from './player-settings';
 import { formSchema } from './schema';
 
 export const load: PageServerLoad = async ({ cookies }) => {

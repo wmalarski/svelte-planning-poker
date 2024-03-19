@@ -2,7 +2,7 @@ import type { Cookies } from '@sveltejs/kit';
 
 import { type Output, parse } from 'valibot';
 
-import { type FormSchema, formSchema } from './schema';
+import { type FormSchema, formSchema } from '../../routes/room/[roomId]/schema';
 
 const PLAYER_SETTINGS_COOKIE_KEY = 'player-settings';
 
