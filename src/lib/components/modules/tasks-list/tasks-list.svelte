@@ -12,11 +12,11 @@
 		tasks: TaskRow[];
 	};
 
-	const { room, tasks: initialTasks }: Props = $props();
-
-	const tasks = $state(initialTasks);
+	const { room, tasks }: Props = $props();
 
 	const session = sessionContext.get();
+
+	const isOwner = $derived(session()?.user.id === room.owner_id);
 </script>
 
 <Card.Root>
@@ -24,12 +24,12 @@
 		<Card.Title class="text-2xl" tag="h2">List of tasks</Card.Title>
 	</Card.Header>
 	<Card.Content class="grid gap-4">
-		{#if session()?.user.id === room.owner_id}
+		{#if isOwner}
 			<CreateTaskForm roomId={room.id} />
 		{/if}
 		<ul>
 			{#each tasks as task}
-				<TasksListItem {task} />
+				<TasksListItem {isOwner} {task} />
 			{/each}
 		</ul>
 	</Card.Content>

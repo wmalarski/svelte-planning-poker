@@ -1,4 +1,4 @@
-import { getPlayerSettingsCookie } from '$lib/services/player-settings';
+import { getPlayerSettingsCookie } from '$lib/services/players';
 import { selectTasks } from '$lib/services/tasks';
 import { paths } from '$lib/utils/paths';
 import { redirect } from '@sveltejs/kit';

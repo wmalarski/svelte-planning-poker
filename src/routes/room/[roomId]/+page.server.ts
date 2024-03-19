@@ -1,7 +1,7 @@
 import {
 	getPlayerSettingsCookie,
 	setPlayerSettingsCookie
-} from '$lib/services/player-settings';
+} from '$lib/services/players';
 import { paths } from '$lib/utils/paths';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';

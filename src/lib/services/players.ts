@@ -1,13 +1,17 @@
 import type { Cookies } from '@sveltejs/kit';
 
-import { type Output, parse } from 'valibot';
-
-import { type FormSchema, formSchema } from '../../routes/room/[roomId]/schema';
+import { type Output, boolean, object, optional, parse, string } from 'valibot';
 
 const PLAYER_SETTINGS_COOKIE_KEY = 'player-settings';
 
+export const playerCookieSchema = object({
+	id: optional(string(), () => crypto.randomUUID()),
+	name: string(),
+	spectator: optional(boolean(), false)
+});
+
 export const setPlayerSettingsCookie = (
-	data: Output<FormSchema>,
+	data: Output<typeof playerCookieSchema>,
 	cookies: Cookies
 ) => {
 	const value = JSON.stringify(data);
@@ -29,7 +33,7 @@ export const getPlayerSettingsCookie = (cookies: Cookies) => {
 
 	try {
 		const parsed = JSON.parse(value);
-		const result = parse(formSchema, parsed);
+		const result = parse(playerCookieSchema, parsed);
 		return result;
 	} catch {
 		return null;
