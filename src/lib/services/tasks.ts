@@ -34,3 +34,32 @@ type DeleteTaskArgs = WithSupabase<{
 export const deleteTask = ({ supabase, taskId }: DeleteTaskArgs) => {
 	return supabase.from('tasks').delete().eq('id', taskId);
 };
+
+type TaskResults = {
+	votes: {
+		name: string;
+	};
+};
+
+type UpdateTaskArgs = WithSupabase<{
+	content?: string;
+	finished?: boolean;
+	order?: number;
+	results?: TaskResults;
+	taskId: string;
+}>;
+
+export const updateTask = ({
+	content,
+	finished,
+	order,
+	results,
+	supabase,
+	taskId
+}: UpdateTaskArgs) => {
+	return supabase
+		.from('tasks')
+		.update({ content, finished, order, results })
+		.eq('id', taskId)
+		.select();
+};
