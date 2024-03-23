@@ -6,6 +6,8 @@
 	import TasksList from '$lib/components/modules/tasks-list/tasks-list.svelte';
 
 	import type { PageData } from './$types';
+	import { createVotingState } from '$lib/components/modules/voting-board/create-voting-state.svelte';
+	import VotingBoard from '$lib/components/modules/voting-board/voting-board.svelte';
 
 	type Props = {
 		data: PageData;
@@ -22,9 +24,20 @@
 		initialTasks: data.tasks,
 		roomId: data.room.id
 	});
+
+	const votingStore = createVotingState({
+		initialCurrentTaskId: data.room.current_task_id,
+		roomId: data.room.id,
+	})
+
+	const currentTask = $derived.by(() => {
+		const currentTaskId = votingStore.currentTaskId;
+		return taskStore.tasks.find(task => task.id === currentTaskId);
+	});
 </script>
 
 <NavbarLayout>
+	<VotingBoard room={data.room} task={currentTask} />
 	<PlayerList players={playersStore.players} />
 	<TasksList room={data.room} tasks={taskStore.tasks} />
 	<pre class="max-w-xl overflow-clip">
@@ -34,7 +47,9 @@
 				players: playersStore.players,
 				room: data.room,
 				session: data.session,
-				tasks: taskStore.tasks
+				tasks: taskStore.tasks,
+				isVoting: votingStore.isVoting,
+				currentTaskId: votingStore.currentTaskId,
 			},
 			null,
 			2

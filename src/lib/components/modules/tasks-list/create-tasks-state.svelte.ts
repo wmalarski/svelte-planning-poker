@@ -34,6 +34,7 @@ export const createTasksState = ({ initialTasks, roomId }: CreateTasksArgs) => {
 				{ event: REALTIME_POSTGRES_CHANGES_LISTEN_EVENT.DELETE, ...options },
 				(payload) => {
 					const index = tasks.findIndex((task) => task.id === payload.old.id);
+
 					if (index >= 0) {
 						tasks.splice(index, 1);
 					}
