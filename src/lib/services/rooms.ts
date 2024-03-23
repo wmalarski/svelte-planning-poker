@@ -1,3 +1,5 @@
+import type { Json } from '$lib/types/supabase';
+
 import type { WithSupabase } from './types';
 
 type SelectRoomArgs = WithSupabase<{
@@ -27,4 +29,27 @@ export const insertRoom = ({ description, name, supabase }: InsertRoomArgs) => {
 		.insert({ config: {}, description, name })
 		.select()
 		.single();
+};
+
+type UpdateTaskArgs = WithSupabase<{
+	config?: Json;
+	currentTaskId?: null | string;
+	description?: string;
+	name?: string;
+	roomId: string;
+}>;
+
+export const updateRoom = ({
+	config,
+	currentTaskId,
+	description,
+	name,
+	roomId,
+	supabase
+}: UpdateTaskArgs) => {
+	return supabase
+		.from('rooms')
+		.update({ config, current_task_id: currentTaskId, description, name })
+		.eq('id', roomId)
+		.select();
 };

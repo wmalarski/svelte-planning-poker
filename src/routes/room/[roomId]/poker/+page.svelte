@@ -4,10 +4,10 @@
 	import { createPlayersState } from '$lib/components/modules/player-list/player-list-state.svelte';
 	import { createTasksState } from '$lib/components/modules/tasks-list/create-tasks-state.svelte';
 	import TasksList from '$lib/components/modules/tasks-list/tasks-list.svelte';
-
-	import type { PageData } from './$types';
 	import { createVotingState } from '$lib/components/modules/voting-board/create-voting-state.svelte';
 	import VotingBoard from '$lib/components/modules/voting-board/voting-board.svelte';
+
+	import type { PageData } from './$types';
 
 	type Props = {
 		data: PageData;
@@ -27,29 +27,37 @@
 
 	const votingStore = createVotingState({
 		initialCurrentTaskId: data.room.current_task_id,
-		roomId: data.room.id,
-	})
+		roomId: data.room.id
+	});
 
 	const currentTask = $derived.by(() => {
 		const currentTaskId = votingStore.currentTaskId;
-		return taskStore.tasks.find(task => task.id === currentTaskId);
+		return taskStore.tasks.find((task) => task.id === currentTaskId);
 	});
+
+	const onCurrentTaskChange = (taskId: string) => {
+		votingStore.currentTaskId = taskId;
+	}
 </script>
 
 <NavbarLayout>
 	<VotingBoard room={data.room} task={currentTask} />
 	<PlayerList players={playersStore.players} />
-	<TasksList room={data.room} tasks={taskStore.tasks} />
+	<TasksList
+		onVoteTaskClick={onCurrentTaskChange}
+		room={data.room}
+		tasks={taskStore.tasks}
+	/>
 	<pre class="max-w-xl overflow-clip">
 		{JSON.stringify(
 			{
+				currentTaskId: votingStore.currentTaskId,
+				isVoting: votingStore.isVoting,
 				player: data.player,
 				players: playersStore.players,
 				room: data.room,
 				session: data.session,
-				tasks: taskStore.tasks,
-				isVoting: votingStore.isVoting,
-				currentTaskId: votingStore.currentTaskId,
+				tasks: taskStore.tasks
 			},
 			null,
 			2

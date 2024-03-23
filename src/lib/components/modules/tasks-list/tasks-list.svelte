@@ -8,11 +8,12 @@
 	import TasksListItem from './tasks-list-item.svelte';
 
 	type Props = {
+		onVoteTaskClick: (taskId: string) => void;
 		room: RoomRow;
 		tasks: TaskRow[];
 	};
 
-	const { room, tasks }: Props = $props();
+	const { onVoteTaskClick, room, tasks }: Props = $props();
 
 	const session = sessionContext.get();
 
@@ -29,7 +30,7 @@
 		{/if}
 		<ul>
 			{#each tasks as task}
-				<TasksListItem {isOwner} {task} />
+				<TasksListItem {isOwner} onVoteClick={onVoteTaskClick} {task} />
 			{/each}
 		</ul>
 	</Card.Content>

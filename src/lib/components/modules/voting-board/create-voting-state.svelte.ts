@@ -1,7 +1,8 @@
 import { supabaseContext } from '$lib/contexts/supabase';
 import {
 	REALTIME_LISTEN_TYPES,
-	REALTIME_SUBSCRIBE_STATES
+	REALTIME_SUBSCRIBE_STATES,
+	type RealtimeChannelSendResponse
 } from '@supabase/supabase-js';
 
 const VOTING_CHANNEL_NAME = 'voting';
@@ -13,7 +14,7 @@ type ChangeCurrentTaskPayload = {
 	id: null | string;
 };
 
-type BroadcastEvents =
+type VotingEvent =
 	| {
 			event: typeof CHANGE_CURRENT_TASK_EVENT_NAME;
 			payload: { id: null | string };
@@ -34,11 +35,12 @@ export const createVotingState = ({
 	initialCurrentTaskId,
 	roomId
 }: CreateVotingArgs) => {
-	let currentTaskId = $state(initialCurrentTaskId);
+	let taskId = $state(initialCurrentTaskId);
 
 	let isVoting = $state(false);
 
-	let sendEvent = $state<(args: BroadcastEvents) => void>(() => void 0);
+	let sendEvent =
+		$state<(args: VotingEvent) => Promise<RealtimeChannelSendResponse>>();
 
 	const supabaseGetter = supabaseContext.get();
 
@@ -53,7 +55,7 @@ export const createVotingState = ({
 				REALTIME_LISTEN_TYPES.BROADCAST,
 				{ event: CHANGE_CURRENT_TASK_EVENT_NAME },
 				({ payload }) => {
-					currentTaskId = payload.id;
+					taskId = payload.id;
 				}
 			)
 			.on<ChangeCurrentTaskPayload>(
@@ -72,13 +74,15 @@ export const createVotingState = ({
 			)
 			.subscribe((status) => {
 				if (status !== REALTIME_SUBSCRIBE_STATES.SUBSCRIBED) {
-					sendEvent = (args) => {
-						channel.send({
-							...args,
-							type: REALTIME_LISTEN_TYPES.BROADCAST
-						});
-					};
+					return;
 				}
+
+				sendEvent = (args) => {
+					return channel.send({
+						...args,
+						type: REALTIME_LISTEN_TYPES.BROADCAST
+					});
+				};
 			});
 
 		return () => {
@@ -88,13 +92,25 @@ export const createVotingState = ({
 
 	return {
 		get currentTaskId() {
-			return currentTaskId;
+			return taskId;
+		},
+		set currentTaskId(nextTaskId: null | string) {
+			taskId = nextTaskId;
+
+			sendEvent?.({
+				event: CHANGE_CURRENT_TASK_EVENT_NAME,
+				payload: { id: taskId }
+			});
 		},
 		get isVoting() {
 			return isVoting;
 		},
-		get sendEvent() {
-			return sendEvent;
+		set isVoting(nextIsVoting: boolean) {
+			isVoting = nextIsVoting;
+
+			sendEvent?.({
+				event: nextIsVoting ? START_VOTING_EVENT_NAME : STOP_VOTING_EVENT_NAME
+			});
 		}
 	};
 };

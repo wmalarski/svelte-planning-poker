@@ -16,7 +16,6 @@
 		<Card.Title class="text-2xl" tag="h2">List of tasks</Card.Title>
 	</Card.Header>
 	<Card.Content class="grid gap-4">
-		<pre>{JSON.stringify({room, task}, null, 2)}</pre>
+		<pre>{JSON.stringify({ room, task }, null, 2)}</pre>
 	</Card.Content>
 </Card.Root>
-
