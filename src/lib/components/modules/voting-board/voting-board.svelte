@@ -1,17 +1,19 @@
 <script lang="ts">
+	import type { PlayerState } from '$lib/services/players';
 	import type { RoomRow, TaskRow } from '$lib/types/models';
 
 	import * as Card from '$lib/components/ui/card';
+
 	import VotingButtons from './voting-buttons.svelte';
-	import type { PlayerState } from '$lib/services/players';
 
 	type Props = {
+		onVoteClick: (vote: string) => void;
+		player: PlayerState;
 		room: RoomRow;
 		task?: TaskRow;
-		player: PlayerState;
 	};
 
-	const { room, task, player }: Props = $props();
+	const { onVoteClick, player, room, task }: Props = $props();
 </script>
 
 <Card.Root>
@@ -20,7 +22,7 @@
 	</Card.Header>
 	<Card.Content class="grid gap-4">
 		{#if task}
-			<VotingButtons {task} {room} {player}/>
+			<VotingButtons {onVoteClick} {player} {room} {task} />
 		{/if}
 	</Card.Content>
 </Card.Root>

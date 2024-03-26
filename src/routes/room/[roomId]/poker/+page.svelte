@@ -27,6 +27,7 @@
 
 	const votingStore = createVotingState({
 		initialCurrentTaskId: data.room.current_task_id,
+		playerId: data.player.id,
 		roomId: data.room.id
 	});
 
@@ -37,11 +38,16 @@
 
 	const onCurrentTaskChange = (taskId: string) => {
 		votingStore.currentTaskId = taskId;
-	}
+	};
 </script>
 
 <NavbarLayout>
-	<VotingBoard room={data.room} task={currentTask} player={data.player} />
+	<VotingBoard
+		onVoteClick={votingStore.setVote}
+		player={data.player}
+		room={data.room}
+		task={currentTask}
+	/>
 	<PlayerList players={playersStore.players} />
 	<TasksList
 		onVoteTaskClick={onCurrentTaskChange}

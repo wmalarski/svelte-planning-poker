@@ -1,26 +1,25 @@
 <script lang="ts">
-	import type { RoomRow, TaskRow } from '$lib/types/models';
 	import type { PlayerState } from '$lib/services/players';
-	import { sessionContext } from '$lib/contexts/session';
+	import type { RoomRow, TaskRow } from '$lib/types/models';
+
 	import { Button } from '$lib/components/ui/button';
 
 	type Props = {
+		onVoteClick: (vote: string) => void;
+		player: PlayerState;
 		room: RoomRow;
 		task: TaskRow;
-		player: PlayerState;
 	};
 
-	const { room, task }: Props = $props();
+	const { onVoteClick }: Props = $props();
 
-	const session = sessionContext.get();
-
-	const cards = ['1', '2', '3', '5', '8', '13', '21', '?']
+	const cards = ['1', '2', '3', '5', '8', '13', '21', '?'];
 
 	const onClick = (card: string) => {
 		return () => {
-			//
-		}
-	} 
+			onVoteClick(card);
+		};
+	};
 </script>
 
 <ul>

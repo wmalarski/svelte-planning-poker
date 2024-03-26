@@ -1,6 +1,7 @@
 <script lang="ts">
-	import * as Card from '$lib/components/ui/card';
 	import type { PlayerState } from '$lib/services/players';
+
+	import * as Card from '$lib/components/ui/card';
 
 	type Props = {
 		players: PlayerState[];
