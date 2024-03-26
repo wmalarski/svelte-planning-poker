@@ -1,5 +1,4 @@
-import type { playerCookieSchema } from '$lib/services/players';
-import type { Output } from 'valibot';
+import type { PlayerState } from '$lib/services/players';
 
 import { supabaseContext } from '$lib/contexts/supabase';
 import {
@@ -7,8 +6,6 @@ import {
 	REALTIME_PRESENCE_LISTEN_EVENTS,
 	REALTIME_SUBSCRIBE_STATES
 } from '@supabase/supabase-js';
-
-export type PlayerState = Output<typeof playerCookieSchema>;
 
 type CreateTasksArgs = {
 	currentPlayer: PlayerState;

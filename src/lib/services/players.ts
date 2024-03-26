@@ -10,8 +10,10 @@ export const playerCookieSchema = object({
 	spectator: optional(boolean(), false)
 });
 
+export type PlayerState = Output<typeof playerCookieSchema>;
+
 export const setPlayerSettingsCookie = (
-	data: Output<typeof playerCookieSchema>,
+	data: PlayerState,
 	cookies: Cookies
 ) => {
 	const value = JSON.stringify(data);

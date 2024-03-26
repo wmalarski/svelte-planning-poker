@@ -41,7 +41,7 @@
 </script>
 
 <NavbarLayout>
-	<VotingBoard room={data.room} task={currentTask} />
+	<VotingBoard room={data.room} task={currentTask} player={data.player} />
 	<PlayerList players={playersStore.players} />
 	<TasksList
 		onVoteTaskClick={onCurrentTaskChange}

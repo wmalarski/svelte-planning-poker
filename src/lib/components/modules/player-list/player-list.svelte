@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
-
-	import type { PlayerState } from './player-list-state.svelte';
+	import type { PlayerState } from '$lib/services/players';
 
 	type Props = {
 		players: PlayerState[];
