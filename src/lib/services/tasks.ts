@@ -35,10 +35,14 @@ export const deleteTask = ({ supabase, taskId }: DeleteTaskArgs) => {
 	return supabase.from('tasks').delete().eq('id', taskId);
 };
 
+type TaskVote = {
+	name: string;
+	playerId: string;
+	value: string;
+};
+
 type TaskResults = {
-	votes: {
-		name: string;
-	};
+	votes: Record<string, TaskVote>;
 };
 
 type UpdateTaskArgs = WithSupabase<{
@@ -60,6 +64,28 @@ export const updateTask = ({
 	return supabase
 		.from('tasks')
 		.update({ content, finished, order, results })
+		.eq('id', taskId)
+		.select();
+};
+
+type VoteOnTaskArgs = WithSupabase<{
+	name: string;
+	playerId: string;
+	taskId: string;
+	value: string;
+}>;
+
+export const voteOnTask = ({
+	name,
+	playerId,
+	supabase,
+	taskId,
+	value
+}: VoteOnTaskArgs) => {
+	const taskVote = { name, playerId, value };
+	return supabase
+		.from('tasks')
+		.update({ results: { [playerId]: taskVote } })
 		.eq('id', taskId)
 		.select();
 };

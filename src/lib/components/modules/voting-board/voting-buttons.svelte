@@ -3,6 +3,8 @@
 	import type { RoomRow, TaskRow } from '$lib/types/models';
 
 	import { Button } from '$lib/components/ui/button';
+	import { supabaseContext } from '$lib/contexts/supabase';
+	import { voteOnTask } from '$lib/services/tasks'
 
 	type Props = {
 		onVoteClick: (vote: string) => void;
@@ -10,14 +12,24 @@
 		room: RoomRow;
 		task: TaskRow;
 	};
+	
+	const { onVoteClick, task, player }: Props = $props();
 
-	const { onVoteClick }: Props = $props();
-
+	const supabaseGetter = supabaseContext.get();
+	
 	const cards = ['1', '2', '3', '5', '8', '13', '21', '?'];
 
 	const onClick = (card: string) => {
 		return () => {
 			onVoteClick(card);
+
+			voteOnTask({
+				name: player.name,
+				playerId: player.id,
+				supabase: supabaseGetter(),
+				taskId: task.id,
+				value: card,
+			});
 		};
 	};
 </script>
