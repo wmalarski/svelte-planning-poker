@@ -21,12 +21,18 @@ export const selectsRoom = ({ ownerId, supabase }: SelectRoomsArgs) => {
 type InsertRoomArgs = WithSupabase<{
 	description: string;
 	name: string;
+	playerId: string;
 }>;
 
-export const insertRoom = ({ description, name, supabase }: InsertRoomArgs) => {
+export const insertRoom = ({
+	description,
+	name,
+	playerId,
+	supabase
+}: InsertRoomArgs) => {
 	return supabase
 		.from('rooms')
-		.insert({ config: {}, description, name })
+		.insert({ config: {}, description, moderators: [playerId], name })
 		.select()
 		.single();
 };

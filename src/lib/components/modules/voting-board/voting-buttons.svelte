@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
 	import type { PlayerState } from '$lib/services/players';
 	import type { TaskResults, TaskRow } from '$lib/types/models';
+
+	import { Button } from '$lib/components/ui/button';
 	import { supabaseContext } from '$lib/contexts/supabase';
 	import { voteOnTask } from '$lib/services/tasks';
 
@@ -9,9 +10,9 @@
 		player: PlayerState;
 		task: TaskRow;
 	};
-	
+
 	const { player, task }: Props = $props();
-	
+
 	const supabaseGetter = supabaseContext.get();
 
 	const cards = ['1', '2', '3', '5', '8', '13', '21', '?'];
@@ -19,7 +20,7 @@
 	const onClick = (card: string) => {
 		return async () => {
 			await voteOnTask({
-				current: task.results as TaskResults ?? {},
+				current: (task.results as TaskResults) ?? {},
 				name: player.name,
 				playerId: player.id,
 				supabase: supabaseGetter(),

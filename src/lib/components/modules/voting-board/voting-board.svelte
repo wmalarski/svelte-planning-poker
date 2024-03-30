@@ -1,22 +1,22 @@
 <script lang="ts">
 	import type { PlayerState } from '$lib/services/players';
-	import type { RoomRow, TaskRow } from '$lib/types/models';
+	import type { TaskRow } from '$lib/types/models';
 
 	import * as Card from '$lib/components/ui/card';
 
 	import VotingButtons from './voting-buttons.svelte';
-	import VotingResults from './voting-results.svelte';
 	import VotingControls from './voting-controls.svelte';
+	import VotingResults from './voting-results.svelte';
 
 	type Props = {
+		isOwner: boolean;
 		onNextVoteClick: () => void;
 		player: PlayerState;
 		players: PlayerState[];
-		room: RoomRow;
 		task?: TaskRow;
 	};
 
-	const { onNextVoteClick, player, players, room, task }: Props = $props();
+	const { isOwner, onNextVoteClick, player, players, task }: Props = $props();
 </script>
 
 <Card.Root>
@@ -25,11 +25,14 @@
 	</Card.Header>
 	<Card.Content class="grid gap-4">
 		{#if task}
-			{#if room.owner_id === player.id}
-				<VotingControls {task} {onNextVoteClick} />
+			<b>{task.content}</b>
+			{#if isOwner}
+				<VotingControls {onNextVoteClick} {task} />
 			{/if}
-			<VotingResults {task} {players} />
-			<VotingButtons {task} {player} />
+			<VotingResults {players} {task} />
+			{#if !player.spectator}
+				<VotingButtons {player} {task} />
+			{/if}
 		{/if}
 	</Card.Content>
 </Card.Root>

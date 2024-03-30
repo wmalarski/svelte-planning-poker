@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
+	import { createRealtimeState } from '$lib/components/modules/stores/create-realtime-state.svelte';
 	import { createPlayersState } from '$lib/components/modules/stores/player-list-state.svelte';
 	import TasksList from '$lib/components/modules/tasks-list/tasks-list.svelte';
 	import VotingBoard from '$lib/components/modules/voting-board/voting-board.svelte';
-	import { createRealtimeState } from '$lib/components/modules/stores/create-realtime-state.svelte';
 
 	import type { PageData } from './$types';
 
@@ -23,6 +23,10 @@
 		initialTasks: data.tasks
 	});
 
+	const isOwner = $derived.by(() => {
+		return realtimeStore.room.moderators.includes(data.player.id);
+	});
+
 	const onCurrentTaskChange = (taskId: string) => {
 		realtimeStore.currentTaskId = taskId;
 	};
@@ -30,13 +34,14 @@
 
 <NavbarLayout>
 	<VotingBoard
-		player={data.player}
-		room={realtimeStore.room}
-		task={realtimeStore.currentTask}
+		{isOwner}
 		onNextVoteClick={realtimeStore.nextTask}
+		player={data.player}
 		players={playersStore.players}
+		task={realtimeStore.currentTask}
 	/>
 	<TasksList
+		{isOwner}
 		onVoteTaskClick={onCurrentTaskChange}
 		room={realtimeStore.room}
 		tasks={realtimeStore.tasks}

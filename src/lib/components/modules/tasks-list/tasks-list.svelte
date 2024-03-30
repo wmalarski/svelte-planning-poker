@@ -2,22 +2,18 @@
 	import type { RoomRow, TaskRow } from '$lib/types/models';
 
 	import * as Card from '$lib/components/ui/card';
-	import { sessionContext } from '$lib/contexts/session';
 
 	import CreateTaskForm from './create-task-form.svelte';
 	import TasksListItem from './tasks-list-item.svelte';
 
 	type Props = {
+		isOwner: boolean;
 		onVoteTaskClick: (taskId: string) => void;
 		room: RoomRow;
 		tasks: TaskRow[];
 	};
 
-	const { onVoteTaskClick, room, tasks }: Props = $props();
-
-	const session = sessionContext.get();
-
-	const isOwner = $derived(session()?.user.id === room.owner_id);
+	const { isOwner, onVoteTaskClick, room, tasks }: Props = $props();
 </script>
 
 <Card.Root>

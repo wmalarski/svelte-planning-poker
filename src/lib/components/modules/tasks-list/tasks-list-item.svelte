@@ -13,7 +13,7 @@
 
 	const { isOwner, onVoteClick, task }: Props = $props();
 
-	const onVote = async () => {
+	const onVote = () => {
 		onVoteClick(task.id);
 	};
 </script>

@@ -29,16 +29,20 @@ export const load: PageServerLoad = async ({
 };
 
 export const actions = {
-	default: async ({ locals: { supabase }, request }) => {
-		const form = await superValidate(request, valibot(formSchema));
+	default: async ({ locals: { getSession, supabase }, request }) => {
+		const [form, session] = await Promise.all([
+			superValidate(request, valibot(formSchema)),
+			getSession()
+		]);
 
-		if (!form.valid) {
+		if (!form.valid || !session?.user.id) {
 			return fail(400, { form, message: 'Invalid request' });
 		}
 
 		const response = await insertRoom({
 			description: form.data.description,
 			name: form.data.name,
+			playerId: session.user.id,
 			supabase
 		});
 

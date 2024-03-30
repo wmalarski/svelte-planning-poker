@@ -10,7 +10,7 @@
 		vote?: TaskVote;
 	};
 
-	const { player, vote, finished }: Props = $props();
+	const { finished, player, vote }: Props = $props();
 </script>
 
 <Card.Root>

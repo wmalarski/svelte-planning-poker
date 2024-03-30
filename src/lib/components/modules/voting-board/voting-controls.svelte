@@ -1,32 +1,33 @@
 <script lang="ts">
+	import type { TaskRow } from '$lib/types/models';
+
 	import { Button } from '$lib/components/ui/button';
 	import { supabaseContext } from '$lib/contexts/supabase';
 	import { updateTask } from '$lib/services/tasks';
-	import type { TaskRow } from '$lib/types/models';
 
 	type Props = {
-		task: TaskRow;
 		onNextVoteClick: () => void;
+		task: TaskRow;
 	};
 
-	const { task, onNextVoteClick }: Props = $props();
+	const { onNextVoteClick, task }: Props = $props();
 
 	const supabaseGetter = supabaseContext.get();
 
 	const onEndVoteClick = () => {
 		updateTask({
+			finished: true,
 			supabase: supabaseGetter(),
-			taskId: task.id,
-			finished: true
+			taskId: task.id
 		});
 	};
 
 	const onResetVoteClick = () => {
 		updateTask({
-			supabase: supabaseGetter(),
-			taskId: task.id,
 			finished: false,
-			results: {}
+			results: {},
+			supabase: supabaseGetter(),
+			taskId: task.id
 		});
 	};
 </script>
