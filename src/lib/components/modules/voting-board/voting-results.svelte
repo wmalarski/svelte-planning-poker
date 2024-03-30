@@ -10,10 +10,12 @@
 	};
 
 	const { players, task }: Props = $props();
+
+	const playersToDisplay = $derived(players.filter(player => !player.spectator))
 </script>
 
 <ul>
-	{#each players as player}
+	{#each playersToDisplay as player}
 		<li>
 			<VoteResultCard
 				finished={task.finished}

@@ -94,14 +94,7 @@ export const createRealtimeState = ({
 		get currentTask() {
 			return currentTask;
 		},
-		set currentTaskId(nextTaskId: null | string) {
-			updateRoom({
-				currentTaskId: nextTaskId,
-				roomId: room.id,
-				supabase: supabaseGetter()
-			});
-		},
-		nextTask() {
+		async moveToNextTask() {
 			const currentTaskId = room.current_task_id;
 			if (!currentTaskId) {
 				return;
@@ -117,7 +110,7 @@ export const createRealtimeState = ({
 				return;
 			}
 
-			updateRoom({
+			await updateRoom({
 				currentTaskId: newTask.id,
 				roomId: room.id,
 				supabase: supabaseGetter()
@@ -128,6 +121,13 @@ export const createRealtimeState = ({
 		},
 		get tasks() {
 			return tasks;
+		},
+		async updateCurrentTaskId(nextTaskId: null | string) {
+			await updateRoom({
+				currentTaskId: nextTaskId,
+				roomId: room.id,
+				supabase: supabaseGetter()
+			});
 		}
 	};
 };

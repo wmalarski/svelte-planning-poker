@@ -26,23 +26,19 @@
 	const isOwner = $derived.by(() => {
 		return realtimeStore.room.moderators.includes(data.player.id);
 	});
-
-	const onCurrentTaskChange = (taskId: string) => {
-		realtimeStore.currentTaskId = taskId;
-	};
 </script>
 
 <NavbarLayout>
 	<VotingBoard
 		{isOwner}
-		onNextVoteClick={realtimeStore.nextTask}
+		onNextVoteClick={realtimeStore.moveToNextTask}
 		player={data.player}
 		players={playersStore.players}
 		task={realtimeStore.currentTask}
 	/>
 	<TasksList
 		{isOwner}
-		onVoteTaskClick={onCurrentTaskChange}
+		onVoteTaskClick={realtimeStore.updateCurrentTaskId}
 		room={realtimeStore.room}
 		tasks={realtimeStore.tasks}
 	/>

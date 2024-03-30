@@ -14,16 +14,16 @@
 
 	const supabaseGetter = supabaseContext.get();
 
-	const onEndVoteClick = () => {
-		updateTask({
+	const onEndVoteClick = async () => {
+		await updateTask({
 			finished: true,
 			supabase: supabaseGetter(),
 			taskId: task.id
 		});
 	};
 
-	const onResetVoteClick = () => {
-		updateTask({
+	const onResetVoteClick = async () => {
+		await updateTask({
 			finished: false,
 			results: {},
 			supabase: supabaseGetter(),
