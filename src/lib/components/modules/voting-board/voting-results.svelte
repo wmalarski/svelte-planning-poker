@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PlayerState } from '$lib/services/players';
+	import type { PlayerState } from '$lib/server/players';
 	import type { TaskResults, TaskRow } from '$lib/types/models';
 
 	import VoteResultCard from './vote-result-card.svelte';

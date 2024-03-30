@@ -1,6 +1,7 @@
 export const paths = {
 	home: '/',
 	notFound: '/404',
+	playerApi: '/api/player',
 	poker: (roomId: string) => `/room/${roomId}/poker`,
 	repository: 'https://github.com/wmalarski/svelte-planning-poker',
 	room: (roomId: string) => `/room/${roomId}`,

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PlayerState } from '$lib/services/players';
+	import type { PlayerState } from '$lib/server/players';
 	import type { TaskResults, TaskRow } from '$lib/types/models';
 
 	import { Button } from '$lib/components/ui/button';
@@ -31,7 +31,7 @@
 	};
 </script>
 
-<ul>
+<ul class="flex gap-2">
 	{#each cards as card}
 		<li>
 			<Button onclick={onClick(card)}>

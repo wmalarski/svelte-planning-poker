@@ -106,12 +106,8 @@ export const createRealtimeState = ({
 			}
 
 			const newTask = tasks[currentIndex + 1];
-			if (!newTask) {
-				return;
-			}
-
 			await updateRoom({
-				currentTaskId: newTask.id,
+				currentTaskId: newTask?.id ?? null,
 				roomId: room.id,
 				supabase: supabaseGetter()
 			});

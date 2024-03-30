@@ -1,4 +1,4 @@
-import type { PlayerState } from '$lib/services/players';
+import type { PlayerState } from '$lib/server/players';
 
 import { supabaseContext } from '$lib/contexts/supabase';
 import {
