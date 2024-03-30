@@ -18,7 +18,7 @@
 
 	const onClick = (card: string) => {
 		return async () => {
-			const result = await voteOnTask({
+			await voteOnTask({
 				current: task.results as TaskResults ?? {},
 				name: player.name,
 				playerId: player.id,

@@ -1,35 +1,41 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
-    import { supabaseContext } from '$lib/contexts/supabase';
-    import { updateTask } from '$lib/services/tasks';
+	import { supabaseContext } from '$lib/contexts/supabase';
+	import { updateTask } from '$lib/services/tasks';
+	import type { TaskRow } from '$lib/types/models';
 
 	type Props = {
-        taskId: string;
-        isVoting: boolean;
-        onNextVoteClick: () => void
+		task: TaskRow;
+		onNextVoteClick: () => void;
 	};
-	
-	const { taskId, isVoting, onNextVoteClick }: Props = $props();
 
-    const supabaseGetter = supabaseContext.get();
+	const { task, onNextVoteClick }: Props = $props();
 
-    const onEndVoteClick = () => {
-        updateTask({
-            supabase: supabaseGetter(),
-            taskId,
-            finished: true, 
-        });
-    } 
+	const supabaseGetter = supabaseContext.get();
+
+	const onEndVoteClick = () => {
+		updateTask({
+			supabase: supabaseGetter(),
+			taskId: task.id,
+			finished: true
+		});
+	};
+
+	const onResetVoteClick = () => {
+		updateTask({
+			supabase: supabaseGetter(),
+			taskId: task.id,
+			finished: false,
+			results: {}
+		});
+	};
 </script>
 
 <div>
-    {#if isVoting}
-        <Button onclick={onEndVoteClick}>
-            End voting
-        </Button>
-    {:else}
-        <Button onclick={onNextVoteClick}>
-            Next vote
-        </Button>
-    {/if}
+	{#if task.finished}
+		<Button onclick={onNextVoteClick}>Next vote</Button>
+		<Button onclick={onResetVoteClick}>Reset vote</Button>
+	{:else}
+		<Button onclick={onEndVoteClick}>End voting</Button>
+	{/if}
 </div>

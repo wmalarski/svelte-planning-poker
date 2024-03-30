@@ -50,8 +50,8 @@
 		player={data.player}
 		room={data.room}
 		task={currentTask}
-		isVoting={!currentTask?.finished}
 		onNextVoteClick={onNextVoteClick}
+		players={playersStore.players}
 	/>
 	<PlayerList players={playersStore.players} />
 	<TasksList
