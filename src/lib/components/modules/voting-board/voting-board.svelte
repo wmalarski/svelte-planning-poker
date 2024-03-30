@@ -18,7 +18,7 @@
 
 <Card.Root>
 	<Card.Header class="space-y-1">
-		<Card.Title class="text-2xl" tag="h2">List of tasks</Card.Title>
+		<Card.Title class="text-2xl" tag="h2">Voting</Card.Title>
 	</Card.Header>
 	<Card.Content class="grid gap-4">
 		{#if task}

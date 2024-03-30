@@ -20,16 +20,18 @@
 	const cards = ['1', '2', '3', '5', '8', '13', '21', '?'];
 
 	const onClick = (card: string) => {
-		return () => {
-			onVoteClick(card);
+		return async () => {
+			// onVoteClick(card);
 
-			voteOnTask({
+			const result = await voteOnTask({
 				name: player.name,
 				playerId: player.id,
 				supabase: supabaseGetter(),
 				taskId: task.id,
 				value: card,
 			});
+
+			console.log("result", result);
 		};
 	};
 </script>
