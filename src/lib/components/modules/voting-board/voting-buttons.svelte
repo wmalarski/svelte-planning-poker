@@ -1,31 +1,30 @@
 <script lang="ts">
-	import type { PlayerState } from '$lib/services/players';
-	import type { RoomRow, TaskRow } from '$lib/types/models';
-
 	import { Button } from '$lib/components/ui/button';
+	import type { PlayerState } from '$lib/services/players';
+	import type { TaskResults, TaskRow } from '$lib/types/models';
 	import { supabaseContext } from '$lib/contexts/supabase';
-	import { voteOnTask } from '$lib/services/tasks'
+	import { voteOnTask } from '$lib/services/tasks';
 
 	type Props = {
 		player: PlayerState;
-		room: RoomRow;
 		task: TaskRow;
 	};
 	
-	const { task, player }: Props = $props();
-
-	const supabaseGetter = supabaseContext.get();
+	const { player, task }: Props = $props();
 	
+	const supabaseGetter = supabaseContext.get();
+
 	const cards = ['1', '2', '3', '5', '8', '13', '21', '?'];
 
 	const onClick = (card: string) => {
-		return () => {
-			voteOnTask({
+		return async () => {
+			const result = await voteOnTask({
+				current: task.results as TaskResults ?? {},
 				name: player.name,
 				playerId: player.id,
 				supabase: supabaseGetter(),
 				taskId: task.id,
-				value: card,
+				value: card
 			});
 		};
 	};

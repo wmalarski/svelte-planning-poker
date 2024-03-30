@@ -25,7 +25,7 @@ export const actions = {
 			return fail(400, { form, message: 'Invalid request' });
 		}
 
-		setPlayerSettingsCookie(form.data, cookies);
+		setPlayerSettingsCookie({ ...form.data, id: crypto.randomUUID() }, cookies);
 
 		return redirect(302, paths.poker(params.roomId));
 	}

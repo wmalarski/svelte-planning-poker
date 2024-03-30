@@ -1,3 +1,5 @@
+import type { TaskResults } from '$lib/types/models';
+
 import type { WithSupabase } from './types';
 
 type SelectTasksArgs = WithSupabase<{
@@ -35,16 +37,6 @@ export const deleteTask = ({ supabase, taskId }: DeleteTaskArgs) => {
 	return supabase.from('tasks').delete().eq('id', taskId);
 };
 
-type TaskVote = {
-	name: string;
-	playerId: string;
-	value: string;
-};
-
-type TaskResults = {
-	votes: Record<string, TaskVote>;
-};
-
 type UpdateTaskArgs = WithSupabase<{
 	content?: string;
 	finished?: boolean;
@@ -69,6 +61,7 @@ export const updateTask = ({
 };
 
 type VoteOnTaskArgs = WithSupabase<{
+	current: TaskResults;
 	name: string;
 	playerId: string;
 	taskId: string;
@@ -76,6 +69,7 @@ type VoteOnTaskArgs = WithSupabase<{
 }>;
 
 export const voteOnTask = ({
+	current,
 	name,
 	playerId,
 	supabase,
@@ -83,9 +77,10 @@ export const voteOnTask = ({
 	value
 }: VoteOnTaskArgs) => {
 	const taskVote = { name, playerId, value };
+
 	return supabase
 		.from('tasks')
-		.update({ results: { [playerId]: taskVote } })
+		.update({ results: { ...current, [playerId]: taskVote } })
 		.eq('id', taskId)
 		.select();
 };

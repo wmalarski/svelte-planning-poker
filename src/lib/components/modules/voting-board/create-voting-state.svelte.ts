@@ -1,8 +1,5 @@
-import type { PlayerState } from '$lib/services/players';
-
 import { supabaseContext } from '$lib/contexts/supabase';
 import { updateRoom } from '$lib/services/rooms';
-import { voteOnTask } from '$lib/services/tasks';
 import {
 	REALTIME_LISTEN_TYPES,
 	REALTIME_SUBSCRIBE_STATES,
@@ -23,13 +20,11 @@ type VotingEvent = {
 
 type CreateVotingArgs = {
 	initialCurrentTaskId: null | string;
-	player: PlayerState;
 	roomId: string;
 };
 
 export const createVotingState = ({
 	initialCurrentTaskId,
-	player,
 	roomId
 }: CreateVotingArgs) => {
 	let taskId = $state(initialCurrentTaskId);
@@ -87,18 +82,6 @@ export const createVotingState = ({
 				currentTaskId: taskId,
 				roomId,
 				supabase: supabaseGetter()
-			});
-		},
-		sendVote(vote: string) {
-			if (!taskId) {
-				return;
-			}
-			voteOnTask({
-				name: player.name,
-				playerId: player.id,
-				supabase: supabaseGetter(),
-				taskId: taskId,
-				value: vote
 			});
 		}
 	};

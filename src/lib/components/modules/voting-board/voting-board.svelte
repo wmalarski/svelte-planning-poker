@@ -33,7 +33,7 @@
 				/>
 			{/if}
 			<VotingResultsView {task} />
-			<VotingButtons {player} {room} {task} />
+			<VotingButtons {task} {player} />
 		{/if}
 	</Card.Content>
 </Card.Root>

@@ -27,7 +27,6 @@
 
 	const votingStore = createVotingState({
 		initialCurrentTaskId: data.room.current_task_id,
-		player: data.player,
 		roomId: data.room.id
 	});
 

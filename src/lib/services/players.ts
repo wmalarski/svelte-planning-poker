@@ -5,7 +5,7 @@ import { type Output, boolean, object, optional, parse, string } from 'valibot';
 const PLAYER_SETTINGS_COOKIE_KEY = 'player-settings';
 
 export const playerCookieSchema = object({
-	id: optional(string(), () => crypto.randomUUID()),
+	id: optional(string(), crypto.randomUUID()),
 	name: string(),
 	spectator: optional(boolean(), false)
 });
