@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
-	import PlayerList from '$lib/components/modules/player-list/player-list.svelte';
-	import { createPlayersState } from '$lib/components/modules/player-list/player-list-state.svelte';
-	import { createTasksState } from '$lib/components/modules/tasks-list/create-tasks-state.svelte';
+	import { createPlayersState } from '$lib/components/modules/stores/player-list-state.svelte';
+	import { createTasksState } from '$lib/components/modules/stores/create-tasks-state.svelte';
 	import TasksList from '$lib/components/modules/tasks-list/tasks-list.svelte';
-	import { createVotingState } from '$lib/components/modules/voting-board/create-voting-state.svelte';
+	import { createVotingState } from '$lib/components/modules/stores/create-voting-state.svelte';
 	import VotingBoard from '$lib/components/modules/voting-board/voting-board.svelte';
 
 	import type { PageData } from './$types';
@@ -53,7 +52,6 @@
 		onNextVoteClick={onNextVoteClick}
 		players={playersStore.players}
 	/>
-	<PlayerList players={playersStore.players} />
 	<TasksList
 		onVoteTaskClick={onCurrentTaskChange}
 		room={data.room}
