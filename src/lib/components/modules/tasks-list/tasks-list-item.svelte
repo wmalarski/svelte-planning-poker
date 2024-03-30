@@ -2,8 +2,6 @@
 	import type { TaskRow } from '$lib/types/models';
 
 	import { Button } from '$lib/components/ui/button';
-	import { supabaseContext } from '$lib/contexts/supabase';
-	import { updateRoom } from '$lib/services/rooms';
 
 	import RemoveTaskForm from './remove-task-form.svelte';
 
@@ -15,16 +13,8 @@
 
 	const { isOwner, onVoteClick, task }: Props = $props();
 
-	const supabase = supabaseContext.get();
-
 	const onVote = async () => {
 		onVoteClick(task.id);
-
-		await updateRoom({
-			currentTaskId: task.id,
-			roomId: task.room_id,
-			supabase: supabase()
-		});
 	};
 </script>
 

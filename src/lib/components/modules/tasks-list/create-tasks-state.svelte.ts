@@ -68,6 +68,18 @@ export const createTasksState = ({ initialTasks, roomId }: CreateTasksArgs) => {
 	// window.addEventListener('focus', handleFocus, false)
 
 	return {
+		nextTask(taskId: string | undefined) {
+			if (!taskId) {
+				return null;
+			}
+
+			const currentIndex = tasks.findIndex((task) => task.id === taskId);
+			if (currentIndex < 0) {
+				return null;
+			}
+
+			return tasks[currentIndex] ?? null;
+		},
 		get tasks() {
 			return tasks;
 		}

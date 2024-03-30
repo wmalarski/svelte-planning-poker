@@ -7,31 +7,26 @@
 	import { voteOnTask } from '$lib/services/tasks'
 
 	type Props = {
-		onVoteClick: (vote: string) => void;
 		player: PlayerState;
 		room: RoomRow;
 		task: TaskRow;
 	};
 	
-	const { onVoteClick, task, player }: Props = $props();
+	const { task, player }: Props = $props();
 
 	const supabaseGetter = supabaseContext.get();
 	
 	const cards = ['1', '2', '3', '5', '8', '13', '21', '?'];
 
 	const onClick = (card: string) => {
-		return async () => {
-			// onVoteClick(card);
-
-			const result = await voteOnTask({
+		return () => {
+			voteOnTask({
 				name: player.name,
 				playerId: player.id,
 				supabase: supabaseGetter(),
 				taskId: task.id,
 				value: card,
 			});
-
-			console.log("result", result);
 		};
 	};
 </script>

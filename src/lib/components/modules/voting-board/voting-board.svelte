@@ -5,15 +5,18 @@
 	import * as Card from '$lib/components/ui/card';
 
 	import VotingButtons from './voting-buttons.svelte';
+	import VotingResultsView from './voting-results-view.svelte';
+	import VotingControls from './voting-controls.svelte';
 
 	type Props = {
-		onVoteClick: (vote: string) => void;
+		isVoting: boolean;
+        onNextVoteClick: () => void
 		player: PlayerState;
 		room: RoomRow;
 		task?: TaskRow;
 	};
 
-	const { onVoteClick, player, room, task }: Props = $props();
+	const { isVoting, onNextVoteClick, player, room, task }: Props = $props();
 </script>
 
 <Card.Root>
@@ -22,7 +25,15 @@
 	</Card.Header>
 	<Card.Content class="grid gap-4">
 		{#if task}
-			<VotingButtons {onVoteClick} {player} {room} {task} />
+			{#if room.owner_id === player.id}
+				<VotingControls 
+					isVoting={isVoting}
+					taskId={task.id}
+					onNextVoteClick={onNextVoteClick}
+				/>
+			{/if}
+			<VotingResultsView {task} />
+			<VotingButtons {player} {room} {task} />
 		{/if}
 	</Card.Content>
 </Card.Root>
