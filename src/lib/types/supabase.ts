@@ -1,3 +1,5 @@
+import type { TaskResults } from './models';
+
 export type Json =
 	| { [key: string]: Json | undefined }
 	| Json[]
@@ -73,7 +75,7 @@ export type Database = {
 					finished: boolean;
 					id?: string;
 					order?: number;
-					results?: Json | null;
+					results?: TaskResults | null;
 					room_id: string;
 				};
 				Relationships: [
@@ -91,7 +93,7 @@ export type Database = {
 					finished: boolean;
 					id: string;
 					order: number;
-					results: Json | null;
+					results: TaskResults | null;
 					room_id: string;
 				};
 				Update: {
@@ -100,7 +102,7 @@ export type Database = {
 					finished?: boolean;
 					id?: string;
 					order?: number;
-					results?: Json | null;
+					results?: TaskResults | null;
 					room_id?: string;
 				};
 			};

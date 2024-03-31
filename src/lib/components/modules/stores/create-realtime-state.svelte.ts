@@ -10,17 +10,26 @@ import {
 type CreateTasksArgs = {
 	initialRoom: RoomRow;
 	initialTasks: TaskRow[];
+	playerId: string;
 };
 
 const POSTGRES_CHANGES_CHANNEL_NAME = 'postgres_changes';
 
 export const createRealtimeState = ({
 	initialRoom,
-	initialTasks
+	initialTasks,
+	playerId
 }: CreateTasksArgs) => {
 	const tasks = $state(initialTasks);
 
 	let room = $state(initialRoom);
+
+	const currentTask = $derived.by(() => {
+		const currentTaskId = room.current_task_id;
+		return tasks.find((task) => task.id === currentTaskId);
+	});
+
+	let currentVote = $state(currentTask?.results?.[playerId].value);
 
 	const supabaseGetter = supabaseContext.get();
 
@@ -85,16 +94,18 @@ export const createRealtimeState = ({
 	// window.addEventListener('visibilitychange', handleFocus, false)
 	// window.addEventListener('focus', handleFocus, false)
 
-	const currentTask = $derived.by(() => {
-		const currentTaskId = room.current_task_id;
-		return tasks.find((task) => task.id === currentTaskId);
-	});
-
 	return {
 		get currentTask() {
 			return currentTask;
 		},
+		get currentVote() {
+			return currentVote;
+		},
+		set currentVote(vote: string | undefined) {
+			currentVote = vote;
+		},
 		async moveToNextTask() {
+			currentVote = undefined;
 			const currentTaskId = room.current_task_id;
 			if (!currentTaskId) {
 				return;
@@ -119,6 +130,7 @@ export const createRealtimeState = ({
 			return tasks;
 		},
 		async updateCurrentTaskId(nextTaskId: null | string) {
+			currentVote = undefined;
 			await updateRoom({
 				currentTaskId: nextTaskId,
 				roomId: room.id,

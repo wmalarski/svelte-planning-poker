@@ -20,18 +20,25 @@
 
 	const realtimeStore = createRealtimeState({
 		initialRoom: data.room,
-		initialTasks: data.tasks
+		initialTasks: data.tasks,
+		playerId: data.player.id,
 	});
 
 	const isOwner = $derived.by(() => {
 		return realtimeStore.room.moderators.includes(data.player.id);
 	});
+
+	const onVoteSubmit = (vote: string) => {
+		realtimeStore.currentVote = vote;
+	}
 </script>
 
 <NavbarLayout>
 	<VotingBoard
+		currentVote={realtimeStore.currentVote}
 		{isOwner}
 		onNextVoteClick={realtimeStore.moveToNextTask}
+		{onVoteSubmit}
 		player={data.player}
 		players={playersStore.players}
 		task={realtimeStore.currentTask}

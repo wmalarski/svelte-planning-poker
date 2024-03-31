@@ -7,11 +7,13 @@
 	import { voteOnTask } from '$lib/services/tasks';
 
 	type Props = {
+		currentVote?: string;
 		player: PlayerState;
 		task: TaskRow;
+		onVoteSubmit: (vote: string) => void;
 	};
 
-	const { player, task }: Props = $props();
+	const { currentVote, player, task, onVoteSubmit }: Props = $props();
 
 	const supabaseGetter = supabaseContext.get();
 
@@ -19,6 +21,7 @@
 
 	const onClick = (card: string) => {
 		return async () => {
+			onVoteSubmit(card);
 			await voteOnTask({
 				current: (task.results as TaskResults) ?? {},
 				name: player.name,
@@ -34,7 +37,11 @@
 <ul class="flex gap-2">
 	{#each cards as card}
 		<li>
-			<Button onclick={onClick(card)}>
+			<Button
+				disabled={task.finished}
+				variant={currentVote === card ? 'default' : 'secondary'}
+				onclick={onClick(card)}
+			>
 				{card}
 			</Button>
 		</li>
