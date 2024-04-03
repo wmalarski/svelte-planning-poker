@@ -10,7 +10,9 @@
 
 	const { players, task }: Props = $props();
 
-	const playersToDisplay = $derived(players.filter(player => !player.spectator))
+	const playersToDisplay = $derived(
+		players.filter((player) => !player.spectator)
+	);
 </script>
 
 <ul>

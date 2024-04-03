@@ -7,12 +7,12 @@
 
 	type Props = {
 		currentVote?: string;
+		onVoteSubmit: (vote: string) => void;
 		player: PlayerState;
 		task: TaskRow;
-		onVoteSubmit: (vote: string) => void;
 	};
 
-	const { currentVote, player, task, onVoteSubmit }: Props = $props();
+	const { currentVote, onVoteSubmit, player, task }: Props = $props();
 
 	const supabaseGetter = supabaseContext.get();
 
@@ -37,8 +37,8 @@
 		<li>
 			<Button
 				disabled={task.finished}
-				variant={currentVote === card ? 'default' : 'secondary'}
 				onclick={onClick(card)}
+				variant={currentVote === card ? 'default' : 'secondary'}
 			>
 				{card}
 			</Button>

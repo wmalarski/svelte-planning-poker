@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { TaskRow } from '$lib/types/models';
 
-	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { Button } from '$lib/components/ui/button';
+	import * as Collapsible from '$lib/components/ui/collapsible';
+	import { ChevronsUpDown } from 'lucide-svelte';
 
 	import RemoveTaskForm from './remove-task-form.svelte';
-	import { ChevronsUpDown } from 'lucide-svelte';
 
 	type Props = {
 		isOwner: boolean;
@@ -30,7 +30,7 @@
 			{/if}
 			{#if task.finished}
 				<Collapsible.Trigger asChild let:builder>
-					<Button builders={[builder]} variant="ghost" size="sm">
+					<Button builders={[builder]} size="sm" variant="ghost">
 						<span>Show results</span>
 						<ChevronsUpDown class="h-4 w-4" />
 					</Button>

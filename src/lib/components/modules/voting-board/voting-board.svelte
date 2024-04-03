@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { PlayerState, TaskRow } from '$lib/types/models';
+
 	import * as Card from '$lib/components/ui/card';
-	import type { TaskRow, PlayerState } from '$lib/types/models';
 
 	import VotingButtons from './voting-buttons.svelte';
 	import VotingControls from './voting-controls.svelte';
@@ -16,7 +17,15 @@
 		task?: TaskRow;
 	};
 
-	const { currentVote, isOwner, onNextVoteClick, onVoteSubmit, player, players, task }: Props = $props();
+	const {
+		currentVote,
+		isOwner,
+		onNextVoteClick,
+		onVoteSubmit,
+		player,
+		players,
+		task
+	}: Props = $props();
 </script>
 
 <Card.Root>
@@ -31,7 +40,7 @@
 			{/if}
 			<VotingResults {players} {task} />
 			{#if !player.spectator}
-				<VotingButtons {currentVote} {player} {task} {onVoteSubmit} />
+				<VotingButtons {currentVote} {onVoteSubmit} {player} {task} />
 			{/if}
 		{/if}
 	</Card.Content>

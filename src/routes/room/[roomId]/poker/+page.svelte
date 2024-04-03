@@ -21,7 +21,7 @@
 	const realtimeStore = createRealtimeState({
 		initialRoom: data.room,
 		initialTasks: data.tasks,
-		playerId: data.player.id,
+		playerId: data.player.id
 	});
 
 	const isOwner = $derived.by(() => {
@@ -30,7 +30,7 @@
 
 	const onVoteSubmit = (vote: string) => {
 		realtimeStore.currentVote = vote;
-	}
+	};
 </script>
 
 <NavbarLayout>

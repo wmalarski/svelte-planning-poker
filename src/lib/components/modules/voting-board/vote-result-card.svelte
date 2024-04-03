@@ -1,7 +1,7 @@
 <script lang="ts">
+	import type { PlayerState, TaskVote } from '$lib/types/models';
 
 	import * as Card from '$lib/components/ui/card';
-	import type { PlayerState, TaskVote } from '$lib/types/models';
 
 	type Props = {
 		finished: boolean;
