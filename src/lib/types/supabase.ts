@@ -17,7 +17,23 @@ export type Database = {
 			[_ in never]: never;
 		};
 		Functions: {
-			[_ in never]: never;
+			update_results: {
+				Args: {
+					player_id: string;
+					player_name: string;
+					task_id: string;
+					value: string;
+				};
+				Returns: {
+					content: string;
+					created_at: string;
+					finished: boolean;
+					id: string;
+					order: number;
+					results: Json | null;
+					room_id: string;
+				}[];
+			};
 		};
 		Tables: {
 			rooms: {
