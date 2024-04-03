@@ -1,8 +1,8 @@
 import {
 	getPlayerSettingsCookie,
-	playerCookieSchema,
 	setPlayerSettingsCookie
 } from '$lib/server/players';
+import { playerCookieSchema } from '$lib/types/models';
 import { type RequestHandler, json } from '@sveltejs/kit';
 import { safeParseAsync } from 'valibot';
 

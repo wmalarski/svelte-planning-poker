@@ -1,4 +1,4 @@
-import { playerCookieSchema } from '$lib/server/players';
+import { playerCookieSchema } from '$lib/types/models';
 import { type BaseSchema, type Input, type Output } from 'valibot';
 
 export type FormSchema = typeof playerCookieSchema;

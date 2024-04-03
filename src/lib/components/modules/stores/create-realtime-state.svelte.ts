@@ -29,7 +29,7 @@ export const createRealtimeState = ({
 		return tasks.find((task) => task.id === currentTaskId);
 	});
 
-	let currentVote = $state(currentTask?.results?.[playerId].value);
+	let currentVote = $state(currentTask?.results?.[playerId]?.value);
 
 	const supabaseGetter = supabaseContext.get();
 

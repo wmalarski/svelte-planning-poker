@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { PlayerState } from '$lib/server/players';
-	import type { TaskResults, TaskRow } from '$lib/types/models';
+	import type { PlayerState, TaskRow } from '$lib/types/models';
 
 	import { Button } from '$lib/components/ui/button';
 	import { supabaseContext } from '$lib/contexts/supabase';
@@ -23,7 +22,6 @@
 		return async () => {
 			onVoteSubmit(card);
 			await voteOnTask({
-				current: (task.results as TaskResults) ?? {},
 				name: player.name,
 				playerId: player.id,
 				supabase: supabaseGetter(),

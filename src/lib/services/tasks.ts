@@ -61,7 +61,6 @@ export const updateTask = ({
 };
 
 type VoteOnTaskArgs = WithSupabase<{
-	current: TaskResults;
 	name: string;
 	playerId: string;
 	taskId: string;
@@ -69,18 +68,16 @@ type VoteOnTaskArgs = WithSupabase<{
 }>;
 
 export const voteOnTask = ({
-	current,
 	name,
 	playerId,
 	supabase,
 	taskId,
 	value
 }: VoteOnTaskArgs) => {
-	const taskVote = { name, playerId, value };
-
-	return supabase
-		.from('tasks')
-		.update({ results: { ...current, [playerId]: taskVote } })
-		.eq('id', taskId)
-		.select();
+	return supabase.rpc('update_results', {
+		player_id: playerId,
+		player_name: name,
+		task_id: taskId,
+		value
+	});
 };

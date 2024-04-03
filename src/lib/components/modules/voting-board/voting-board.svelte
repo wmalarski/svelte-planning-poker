@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
-	import type { PlayerState } from '$lib/server/players';
-	import type { TaskRow } from '$lib/types/models';
+	import type { TaskRow, PlayerState } from '$lib/types/models';
 
 	import VotingButtons from './voting-buttons.svelte';
 	import VotingControls from './voting-controls.svelte';

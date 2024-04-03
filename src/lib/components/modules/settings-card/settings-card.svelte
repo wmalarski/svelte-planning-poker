@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
-	import type { PlayerState } from '$lib/server/players';
+	import type { PlayerState } from '$lib/types/models';
 
 	type Props = {
 		isOwner: boolean;

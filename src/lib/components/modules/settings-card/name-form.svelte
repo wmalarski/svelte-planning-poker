@@ -4,9 +4,8 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import { supabaseContext } from '$lib/contexts/supabase';
 	import { updatePlayer } from '$lib/services/players';
-	import type { PlayerState } from '$lib/server/players';
+	import type { PlayerState } from '$lib/types/models';
 
 	type Props = {
 		player: PlayerState;
