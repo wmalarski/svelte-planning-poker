@@ -26,7 +26,7 @@
 		{#if isOwner}
 			<CreateTaskForm roomId={room.id} />
 		{/if}
-		<ul>
+		<ul class="flex flex-col gap-2">
 			{#each tasks as task}
 				<TasksListItem
 					isCurrent={task.id === currentTask?.id}
