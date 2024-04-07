@@ -91,9 +91,6 @@ export const createRealtimeState = ({
 		};
 	});
 
-	// window.addEventListener('visibilitychange', handleFocus, false)
-	// window.addEventListener('focus', handleFocus, false)
-
 	return {
 		get currentTask() {
 			return currentTask;

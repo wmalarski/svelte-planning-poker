@@ -1,6 +1,6 @@
 import { paths } from '$lib/utils/paths';
 
-type UpdatePlayerArgs = {
+export type UpdatePlayerArgs = {
 	name: string;
 	spectator: boolean;
 };

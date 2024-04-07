@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
-	import { createRealtimeState } from '$lib/components/modules/stores/create-realtime-state.svelte';
+	import SettingsCard from '$lib/components/modules/settings-card/settings-card.svelte';
+	import { createRealtimeState } from '$lib/components/modules/stores/realtime-state.svelte';
 	import { createPlayersState } from '$lib/components/modules/stores/player-list-state.svelte';
 	import TasksList from '$lib/components/modules/tasks-list/tasks-list.svelte';
 	import VotingBoard from '$lib/components/modules/voting-board/voting-board.svelte';
@@ -14,7 +15,7 @@
 	const { data }: Props = $props();
 
 	const playersStore = createPlayersState({
-		currentPlayer: data.player,
+		initialPlayer: data.player,
 		roomId: data.room.id
 	});
 
@@ -34,6 +35,11 @@
 </script>
 
 <NavbarLayout>
+	<SettingsCard 
+		{isOwner}
+		player={data.player}
+		onPlayerUpdate={playersStore.updatePlayer}
+	/>
 	<VotingBoard
 		currentVote={realtimeStore.currentVote}
 		{isOwner}

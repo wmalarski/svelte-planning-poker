@@ -41,6 +41,7 @@ type UpdateTaskArgs = WithSupabase<{
 	config?: Json;
 	currentTaskId?: null | string;
 	description?: string;
+	moderators?: string[];
 	name?: string;
 	roomId: string;
 }>;
@@ -49,13 +50,20 @@ export const updateRoom = ({
 	config,
 	currentTaskId,
 	description,
+	moderators,
 	name,
 	roomId,
 	supabase
 }: UpdateTaskArgs) => {
 	return supabase
 		.from('rooms')
-		.update({ config, current_task_id: currentTaskId, description, name })
+		.update({
+			config,
+			current_task_id: currentTaskId,
+			description,
+			moderators,
+			name
+		})
 		.eq('id', roomId)
 		.select();
 };

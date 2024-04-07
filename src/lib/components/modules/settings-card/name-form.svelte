@@ -9,11 +9,12 @@
 
 	type Props = {
 		player: PlayerState;
+		onChange: (name: string) => void;
 	};
 
-	const { player }: Props = $props();
+	const { player, onChange }: Props = $props();
 
-	const isEditing = $state(false);
+	let isEditing = $state(false);
 
 	const onSubmit: EventHandler<SubmitEvent, HTMLFormElement> = async (
 		event
@@ -22,15 +23,28 @@
 
 		const form = new FormData(event.currentTarget);
 		const name = form.get('name') as string;
+	
+		onChange(name);
+	};
 
-		await updatePlayer({ name, spectator: player.spectator });
+	const onResetClick = () => {
+		isEditing = false;
+	};
+
+	const onEditClick = () => {
+		isEditing = true;
 	};
 </script>
 
-<form on:submit={onSubmit}>
+<form onsubmit={onSubmit}>
 	<fieldset>
-		<Label for="name">Content</Label>
-		<Input id="name" name="name" type="text" />
+		<Label for="name">Name</Label>
+		<Input value={player.name} readonly={!isEditing} id="name" name="name" type="text" />
 	</fieldset>
-	<Button type="submit">Save</Button>
+	{#if isEditing}
+		<Button type="reset" onclick={onResetClick}>Reset</Button>
+		<Button type="submit">Save</Button>
+	{:else}
+		<Button type="button" onclick={onEditClick}>Edit</Button>
+	{/if}
 </form>
