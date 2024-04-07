@@ -41,19 +41,19 @@
 		player={data.player}
 	/>
 	<VotingBoard
+		currentTask={realtimeStore.currentTask}
 		currentVote={realtimeStore.currentVote}
 		{isOwner}
 		onNextVoteClick={realtimeStore.moveToNextTask}
 		{onVoteSubmit}
 		player={data.player}
 		players={playersStore.players}
-		currentTask={realtimeStore.currentTask}
 	/>
 	<TasksList
+		currentTask={realtimeStore.currentTask}
 		{isOwner}
 		onVoteTaskClick={realtimeStore.updateCurrentTaskId}
 		room={realtimeStore.room}
-		currentTask={realtimeStore.currentTask}
 		tasks={realtimeStore.tasks}
 	/>
 	<pre class="max-w-xl overflow-clip">

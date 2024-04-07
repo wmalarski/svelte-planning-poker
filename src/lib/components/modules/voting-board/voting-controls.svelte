@@ -4,8 +4,9 @@
 	import { Button } from '$lib/components/ui/button';
 	import { supabaseContext } from '$lib/contexts/supabase';
 	import { updateTask } from '$lib/services/tasks';
-	import ResetTaskAlertDialog from '../task-controls/reset-task-alert-dialog.svelte';
+
 	import RemoveTaskAlertDialog from '../task-controls/remove-task-alert-dialog.svelte';
+	import ResetTaskAlertDialog from '../task-controls/reset-task-alert-dialog.svelte';
 
 	type Props = {
 		onNextVoteClick: () => void;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { Button } from '$lib/components/ui/button';
-    import { supabaseContext } from '$lib/contexts/supabase';
+	import { supabaseContext } from '$lib/contexts/supabase';
 	import { deleteTask } from '$lib/services/tasks';
 
 	type Props = {
@@ -12,9 +12,9 @@
 
 	const supabase = supabaseContext.get();
 
-    const onContinueClick = async () => {
+	const onContinueClick = async () => {
 		await deleteTask({ supabase: supabase(), taskId });
-    }
+	};
 </script>
 
 <AlertDialog.Root>
@@ -30,7 +30,8 @@
 		</AlertDialog.Header>
 		<AlertDialog.Footer>
 			<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-			<AlertDialog.Action onclick={onContinueClick}>Continue</AlertDialog.Action>
+			<AlertDialog.Action onclick={onContinueClick}>Continue</AlertDialog.Action
+			>
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
 </AlertDialog.Root>

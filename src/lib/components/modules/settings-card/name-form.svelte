@@ -15,9 +15,7 @@
 
 	let isEditing = $state(false);
 
-	const onSubmit: EventHandler<SubmitEvent, HTMLFormElement> = (
-		event
-	) => {
+	const onSubmit: EventHandler<SubmitEvent, HTMLFormElement> = (event) => {
 		event.preventDefault();
 
 		const form = new FormData(event.currentTarget);

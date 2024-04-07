@@ -8,23 +8,23 @@
 	import VotingResults from './voting-results.svelte';
 
 	type Props = {
+		currentTask?: TaskRow;
 		currentVote?: string;
 		isOwner: boolean;
 		onNextVoteClick: () => void;
 		onVoteSubmit: (vote: string) => void;
 		player: PlayerState;
 		players: PlayerState[];
-		currentTask?: TaskRow;
 	};
 
 	const {
+		currentTask,
 		currentVote,
 		isOwner,
 		onNextVoteClick,
 		onVoteSubmit,
 		player,
-		players,
-		currentTask
+		players
 	}: Props = $props();
 </script>
 
@@ -40,7 +40,12 @@
 			{/if}
 			<VotingResults {players} task={currentTask} />
 			{#if !player.spectator}
-				<VotingButtons {currentVote} {onVoteSubmit} {player} task={currentTask} />
+				<VotingButtons
+					{currentVote}
+					{onVoteSubmit}
+					{player}
+					task={currentTask}
+				/>
 			{/if}
 		{/if}
 	</Card.Content>
