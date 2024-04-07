@@ -5,25 +5,24 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import { updatePlayer } from '$lib/services/players';
 
 	type Props = {
-		player: PlayerState;
 		onChange: (name: string) => void;
+		player: PlayerState;
 	};
 
-	const { player, onChange }: Props = $props();
+	const { onChange, player }: Props = $props();
 
 	let isEditing = $state(false);
 
-	const onSubmit: EventHandler<SubmitEvent, HTMLFormElement> = async (
+	const onSubmit: EventHandler<SubmitEvent, HTMLFormElement> = (
 		event
 	) => {
 		event.preventDefault();
 
 		const form = new FormData(event.currentTarget);
 		const name = form.get('name') as string;
-	
+
 		onChange(name);
 	};
 
@@ -39,12 +38,18 @@
 <form onsubmit={onSubmit}>
 	<fieldset>
 		<Label for="name">Name</Label>
-		<Input value={player.name} readonly={!isEditing} id="name" name="name" type="text" />
+		<Input
+			id="name"
+			name="name"
+			readonly={!isEditing}
+			type="text"
+			value={player.name}
+		/>
 	</fieldset>
 	{#if isEditing}
-		<Button type="reset" onclick={onResetClick}>Reset</Button>
+		<Button onclick={onResetClick} type="reset">Reset</Button>
 		<Button type="submit">Save</Button>
 	{:else}
-		<Button type="button" onclick={onEditClick}>Edit</Button>
+		<Button onclick={onEditClick} type="button">Edit</Button>
 	{/if}
 </form>

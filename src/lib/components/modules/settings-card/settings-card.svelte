@@ -1,21 +1,22 @@
 <script lang="ts">
+	import type { UpdatePlayerArgs } from '$lib/services/players';
 	import type { PlayerState } from '$lib/types/models';
 
 	import * as Card from '$lib/components/ui/card';
+
 	import NameForm from './name-form.svelte';
-	import type { UpdatePlayerArgs } from '$lib/services/players';
 
 	type Props = {
 		isOwner: boolean;
-		player: PlayerState;
 		onPlayerUpdate: (update: UpdatePlayerArgs) => void;
+		player: PlayerState;
 	};
 
-	const { isOwner, player, onPlayerUpdate }: Props = $props();
+	const { isOwner, onPlayerUpdate, player }: Props = $props();
 
 	const onNameChange = (name: string) => {
-		onPlayerUpdate({ name, spectator: player.spectator })
-	}
+		onPlayerUpdate({ name, spectator: player.spectator });
+	};
 </script>
 
 <Card.Root>
@@ -26,7 +27,7 @@
 		{#if isOwner}
 			<span>You have moderator rights</span>
 		{/if}
-		<NameForm player={player} onChange={onNameChange} />
+		<NameForm onChange={onNameChange} {player} />
 		{#if player.spectator}
 			<span>You are spectator</span>
 		{/if}

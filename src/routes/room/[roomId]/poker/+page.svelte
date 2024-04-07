@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { NavbarLayout } from '$lib/components/layouts/navbar-layout';
 	import SettingsCard from '$lib/components/modules/settings-card/settings-card.svelte';
-	import { createRealtimeState } from '$lib/components/modules/stores/realtime-state.svelte';
 	import { createPlayersState } from '$lib/components/modules/stores/player-list-state.svelte';
+	import { createRealtimeState } from '$lib/components/modules/stores/realtime-state.svelte';
 	import TasksList from '$lib/components/modules/tasks-list/tasks-list.svelte';
 	import VotingBoard from '$lib/components/modules/voting-board/voting-board.svelte';
 
@@ -35,10 +35,10 @@
 </script>
 
 <NavbarLayout>
-	<SettingsCard 
+	<SettingsCard
 		{isOwner}
-		player={data.player}
 		onPlayerUpdate={playersStore.updatePlayer}
+		player={data.player}
 	/>
 	<VotingBoard
 		currentVote={realtimeStore.currentVote}
