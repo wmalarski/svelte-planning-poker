@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PlayerState, TaskRow } from '$lib/types/models';
+	import type { PlayerState, RoomRow, TaskRow } from '$lib/types/models';
 
 	import * as Card from '$lib/components/ui/card';
 
@@ -8,23 +8,25 @@
 	import VotingResults from './voting-results.svelte';
 
 	type Props = {
+		currentPlayer: PlayerState;
 		currentTask?: TaskRow;
 		currentVote?: string;
-		isOwner: boolean;
+		isModerator: boolean;
 		onNextVoteClick: () => void;
 		onVoteSubmit: (vote: string) => void;
-		player: PlayerState;
 		players: PlayerState[];
+		room: RoomRow;
 	};
 
 	const {
+		currentPlayer,
 		currentTask,
 		currentVote,
-		isOwner,
+		isModerator,
 		onNextVoteClick,
 		onVoteSubmit,
-		player,
-		players
+		players,
+		room
 	}: Props = $props();
 </script>
 
@@ -35,15 +37,15 @@
 	<Card.Content class="grid gap-4">
 		{#if currentTask}
 			<b>{currentTask.content}</b>
-			{#if isOwner}
+			{#if isModerator}
 				<VotingControls {onNextVoteClick} task={currentTask} />
 			{/if}
-			<VotingResults {players} task={currentTask} />
-			{#if !player.spectator}
+			<VotingResults {currentPlayer} {players} {room} task={currentTask} />
+			{#if !currentPlayer.spectator}
 				<VotingButtons
 					{currentVote}
 					{onVoteSubmit}
-					{player}
+					player={currentPlayer}
 					task={currentTask}
 				/>
 			{/if}

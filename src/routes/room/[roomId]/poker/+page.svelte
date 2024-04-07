@@ -25,7 +25,7 @@
 		playerId: data.player.id
 	});
 
-	const isOwner = $derived.by(() => {
+	const isModerator = $derived.by(() => {
 		return realtimeStore.room.moderators.includes(data.player.id);
 	});
 
@@ -36,38 +36,42 @@
 
 <NavbarLayout>
 	<SettingsCard
-		{isOwner}
+		{isModerator}
 		onPlayerUpdate={playersStore.updatePlayer}
 		player={data.player}
 	/>
 	<VotingBoard
+		currentPlayer={data.player}
 		currentTask={realtimeStore.currentTask}
 		currentVote={realtimeStore.currentVote}
-		{isOwner}
+		{isModerator}
 		onNextVoteClick={realtimeStore.moveToNextTask}
 		{onVoteSubmit}
-		player={data.player}
 		players={playersStore.players}
+		room={realtimeStore.room}
 	/>
 	<TasksList
 		currentTask={realtimeStore.currentTask}
-		{isOwner}
+		{isModerator}
 		onVoteTaskClick={realtimeStore.updateCurrentTaskId}
 		room={realtimeStore.room}
 		tasks={realtimeStore.tasks}
 	/>
-	<pre class="max-w-xl overflow-clip">
-		{JSON.stringify(
-			{
-				currentTask: realtimeStore.currentTask,
-				player: data.player,
-				players: playersStore.players,
-				room: realtimeStore.room,
-				session: data.session,
-				tasks: realtimeStore.tasks
-			},
-			null,
-			2
-		)}
+	<details>
+		<summary>Debug</summary>
+		<pre class="max-w-xl overflow-clip">
+			{JSON.stringify(
+				{
+					currentTask: realtimeStore.currentTask,
+					player: data.player,
+					players: playersStore.players,
+					room: realtimeStore.room,
+					session: data.session,
+					tasks: realtimeStore.tasks
+				},
+				null,
+				2
+			)}
 	</pre>
+	</details>
 </NavbarLayout>

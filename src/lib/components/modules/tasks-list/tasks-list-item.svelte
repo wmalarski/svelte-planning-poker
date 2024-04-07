@@ -11,12 +11,12 @@
 
 	type Props = {
 		isCurrent: boolean;
-		isOwner: boolean;
+		isModerator: boolean;
 		onVoteClick: (taskId: string) => void;
 		task: TaskRow;
 	};
 
-	const { isCurrent, isOwner, onVoteClick, task }: Props = $props();
+	const { isCurrent, isModerator, onVoteClick, task }: Props = $props();
 
 	const onVote = () => {
 		onVoteClick(task.id);
@@ -29,16 +29,18 @@
 			<TaskStatusBadge {isCurrent} {task} />
 			<strong class="text-lg">{task.content}</strong>
 			<div class="flex gap-2">
-				{#if isOwner}
+				{#if isModerator}
 					{#if !isCurrent && !task.finished}
 						<Button onclick={onVote} type="button" variant="secondary">
 							Vote
 						</Button>
 					{/if}
 					<RemoveTaskAlertDialog taskId={task.id} />
+					{#if task.finished}
+						<ResetTaskAlertDialog taskId={task.id} />
+					{/if}
 				{/if}
 				{#if task.finished}
-					<ResetTaskAlertDialog taskId={task.id} />
 					<Collapsible.Trigger asChild let:builder>
 						<Button
 							builders={[builder]}

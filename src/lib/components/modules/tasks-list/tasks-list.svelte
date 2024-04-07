@@ -8,13 +8,13 @@
 
 	type Props = {
 		currentTask?: TaskRow;
-		isOwner: boolean;
+		isModerator: boolean;
 		onVoteTaskClick: (taskId: string) => void;
 		room: RoomRow;
 		tasks: TaskRow[];
 	};
 
-	const { currentTask, isOwner, onVoteTaskClick, room, tasks }: Props =
+	const { currentTask, isModerator, onVoteTaskClick, room, tasks }: Props =
 		$props();
 </script>
 
@@ -23,14 +23,14 @@
 		<Card.Title class="text-2xl" tag="h2">List of tasks</Card.Title>
 	</Card.Header>
 	<Card.Content class="grid gap-4">
-		{#if isOwner}
+		{#if isModerator}
 			<CreateTaskForm roomId={room.id} />
 		{/if}
 		<ul class="flex flex-col gap-2">
 			{#each tasks as task}
 				<TasksListItem
 					isCurrent={task.id === currentTask?.id}
-					{isOwner}
+					{isModerator}
 					onVoteClick={onVoteTaskClick}
 					{task}
 				/>

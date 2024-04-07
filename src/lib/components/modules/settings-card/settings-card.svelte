@@ -7,12 +7,12 @@
 	import NameForm from './name-form.svelte';
 
 	type Props = {
-		isOwner: boolean;
+		isModerator: boolean;
 		onPlayerUpdate: (update: UpdatePlayerArgs) => void;
 		player: PlayerState;
 	};
 
-	const { isOwner, onPlayerUpdate, player }: Props = $props();
+	const { isModerator, onPlayerUpdate, player }: Props = $props();
 
 	const onNameChange = (name: string) => {
 		onPlayerUpdate({ name, spectator: player.spectator });
@@ -24,7 +24,7 @@
 		<Card.Title class="text-2xl" tag="h2">User settings</Card.Title>
 	</Card.Header>
 	<Card.Content class="grid gap-4">
-		{#if isOwner}
+		{#if isModerator}
 			<span>You have moderator rights</span>
 		{/if}
 		<NameForm onChange={onNameChange} {player} />

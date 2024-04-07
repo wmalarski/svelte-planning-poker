@@ -1,32 +1,44 @@
 <script lang="ts">
-	import type { PlayerState, TaskVote } from '$lib/types/models';
+	import type { PlayerState, RoomRow, TaskVote } from '$lib/types/models';
 
-	import * as Card from '$lib/components/ui/card';
+	import { Badge } from '$lib/components/ui/badge';
 
 	type Props = {
+		currentPlayer: PlayerState;
 		finished: boolean;
 		player: PlayerState;
+		room: RoomRow;
 		vote?: TaskVote;
 	};
 
-	const { finished, player, vote }: Props = $props();
+	const { currentPlayer, finished, player, room, vote }: Props = $props();
 </script>
 
-<Card.Root>
-	<Card.Content>
-		<span>
-			{#if finished && vote}
-				{vote.value}
-			{:else if finished}
-				Vote skipped
-			{:else if vote}
-				Voted
-			{:else}
-				Waiting for vote
-			{/if}
-		</span>
-		<b>
-			{player.name}
-		</b>
-	</Card.Content>
-</Card.Root>
+<li class="flex flex-col gap-2 p-3 border rounded-lg shadow-sm">
+	<span>
+		{#if player.spectator}
+			Spectator
+		{:else if finished && vote}
+			{vote.value}
+		{:else if finished}
+			Vote skipped
+		{:else if vote}
+			Voted
+		{:else}
+			Waiting for vote
+		{/if}
+	</span>
+	<div>
+		<b>{player.name}</b>
+		{#if player.id === currentPlayer.id}
+			<Badge>Me</Badge>
+		{/if}
+		{#if player.id === room.owner_id}
+			<Badge variant="secondary">Owner</Badge>
+		{:else if room.moderators.includes(player.id)}
+			<Badge variant="secondary">Moderator</Badge>
+		{:else}
+			<Badge variant="secondary">Player</Badge>
+		{/if}
+	</div>
+</li>

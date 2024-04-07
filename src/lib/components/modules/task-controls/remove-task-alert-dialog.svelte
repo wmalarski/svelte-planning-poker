@@ -3,7 +3,6 @@
 	import { Button } from '$lib/components/ui/button';
 	import { supabaseContext } from '$lib/contexts/supabase';
 	import { deleteTask } from '$lib/services/tasks';
-	import { Trash2 } from 'lucide-svelte';
 
 	type Props = {
 		taskId: string;
@@ -20,9 +19,7 @@
 
 <AlertDialog.Root>
 	<AlertDialog.Trigger asChild let:builder>
-		<Button builders={[builder]} variant="secondary">
-			Delete
-		</Button>
+		<Button builders={[builder]} variant="secondary">Delete</Button>
 	</AlertDialog.Trigger>
 	<AlertDialog.Content>
 		<AlertDialog.Header>

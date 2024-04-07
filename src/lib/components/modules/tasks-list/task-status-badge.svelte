@@ -12,13 +12,12 @@
 </script>
 
 <div class="flex gap-2">
-    {#if task.finished}
-	<Badge variant='secondary'>Finished</Badge>
-    {/if}
-    {#if isCurrent}
-	<Badge>Current</Badge>
-    {:else if !task.finished}
-	<Badge variant='outline'>Pending</Badge>
-    {/if}
+	{#if task.finished}
+		<Badge variant="secondary">Finished</Badge>
+	{/if}
+	{#if isCurrent}
+		<Badge>Current</Badge>
+	{:else if !task.finished}
+		<Badge variant="outline">Pending</Badge>
+	{/if}
 </div>
-    
