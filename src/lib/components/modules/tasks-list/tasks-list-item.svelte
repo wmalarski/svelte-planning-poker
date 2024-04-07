@@ -5,7 +5,7 @@
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { ChevronsUpDown } from 'lucide-svelte';
 
-	import RemoveTaskForm from './remove-task-form.svelte';
+	import RemoveTaskAlertDialog from './remove-task-alert-dialog.svelte';
 
 	type Props = {
 		isOwner: boolean;
@@ -26,7 +26,7 @@
 			<strong class="text-lg">{task.content}</strong>
 			{#if isOwner}
 				<Button onclick={onVote} variant="secondary">Vote</Button>
-				<RemoveTaskForm taskId={task.id} />
+				<RemoveTaskAlertDialog taskId={task.id} />
 			{/if}
 			{#if task.finished}
 				<Collapsible.Trigger asChild let:builder>
