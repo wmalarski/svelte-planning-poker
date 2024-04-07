@@ -10,10 +10,11 @@
 		isOwner: boolean;
 		onVoteTaskClick: (taskId: string) => void;
 		room: RoomRow;
+		currentTask?: TaskRow;
 		tasks: TaskRow[];
 	};
 
-	const { isOwner, onVoteTaskClick, room, tasks }: Props = $props();
+	const { isOwner, onVoteTaskClick, room, currentTask, tasks }: Props = $props();
 </script>
 
 <Card.Root>
@@ -26,7 +27,7 @@
 		{/if}
 		<ul>
 			{#each tasks as task}
-				<TasksListItem {isOwner} onVoteClick={onVoteTaskClick} {task} />
+				<TasksListItem {isOwner} onVoteClick={onVoteTaskClick} {task} isCurrent={task.id === currentTask?.id}/>
 			{/each}
 		</ul>
 	</Card.Content>

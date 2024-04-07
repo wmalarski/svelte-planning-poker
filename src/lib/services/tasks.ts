@@ -60,6 +60,18 @@ export const updateTask = ({
 		.select();
 };
 
+type ResetTaskArgs = WithSupabase<{
+	taskId: string;
+}>;
+
+export const resetTask = ({ supabase, taskId }: ResetTaskArgs) => {
+	return supabase
+		.from('tasks')
+		.update({ finished: false, results: {} })
+		.eq('id', taskId)
+		.select();
+};
+
 type VoteOnTaskArgs = WithSupabase<{
 	name: string;
 	playerId: string;

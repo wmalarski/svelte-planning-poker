@@ -5,18 +5,31 @@
 	import * as Collapsible from '$lib/components/ui/collapsible';
 	import { ChevronsUpDown } from 'lucide-svelte';
 
-	import RemoveTaskAlertDialog from './remove-task-alert-dialog.svelte';
+	import RemoveTaskAlertDialog from '../task-controls/remove-task-alert-dialog.svelte';
+	import ResetTaskAlertDialog from '../task-controls/reset-task-alert-dialog.svelte';
+	import { supabaseContext } from '$lib/contexts/supabase';
+	import { resetTask } from '$lib/services/tasks';
 
 	type Props = {
 		isOwner: boolean;
 		onVoteClick: (taskId: string) => void;
 		task: TaskRow;
+		isCurrent: boolean;
 	};
 
-	const { isOwner, onVoteClick, task }: Props = $props();
+	const { isOwner, isCurrent, onVoteClick, task }: Props = $props();
+
+	const supabaseGetter = supabaseContext.get();
 
 	const onVote = () => {
 		onVoteClick(task.id);
+	};
+
+	const onResetVoteClick = async () => {
+		await resetTask({
+			supabase: supabaseGetter(),
+			taskId: task.id,
+		});
 	};
 </script>
 
@@ -25,12 +38,15 @@
 		<div class="flex gap-2">
 			<strong class="text-lg">{task.content}</strong>
 			{#if isOwner}
-				<Button onclick={onVote} variant="secondary">Vote</Button>
+				{#if !isCurrent && !task.finished}
+					<Button type="button" onclick={onVote} variant="secondary">Vote</Button>
+				{/if}
 				<RemoveTaskAlertDialog taskId={task.id} />
 			{/if}
 			{#if task.finished}
+				<ResetTaskAlertDialog taskId={task.id} />
 				<Collapsible.Trigger asChild let:builder>
-					<Button builders={[builder]} size="sm" variant="ghost">
+					<Button type="button" builders={[builder]} size="sm" variant="ghost">
 						<span>Show results</span>
 						<ChevronsUpDown class="h-4 w-4" />
 					</Button>
