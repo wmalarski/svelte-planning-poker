@@ -21,12 +21,12 @@ export const createPlayersState = ({
 }: CreateTasksArgs) => {
 	let players = $state<PlayerState[]>([]);
 
-	let updateJoinPayload = $state<(player: PlayerState) => void>();
+	let player = $state(initialPlayer);
 
 	const supabaseGetter = supabaseContext.get();
 
 	$effect(() => {
-		console.log('initialPlayer', initialPlayer);
+		const untrackedPlayer = player;
 
 		const supabase = supabaseGetter();
 		const channelName = `${PRESENCE_CHANNEL_NAME}:${roomId}`;
@@ -37,7 +37,6 @@ export const createPlayersState = ({
 				REALTIME_LISTEN_TYPES.PRESENCE,
 				{ event: REALTIME_PRESENCE_LISTEN_EVENTS.SYNC },
 				() => {
-					console.log('SYNC');
 					const newState = channel.presenceState<PlayerState>();
 					players = newState[roomId] ?? [];
 				}
@@ -46,7 +45,6 @@ export const createPlayersState = ({
 				REALTIME_LISTEN_TYPES.PRESENCE,
 				{ event: REALTIME_PRESENCE_LISTEN_EVENTS.JOIN },
 				({ newPresences }) => {
-					console.log('JOIN');
 					players.push(...newPresences);
 				}
 			)
@@ -54,16 +52,13 @@ export const createPlayersState = ({
 				REALTIME_LISTEN_TYPES.PRESENCE,
 				{ event: REALTIME_PRESENCE_LISTEN_EVENTS.LEAVE },
 				({ leftPresences }) => {
-					console.log('LEAVE');
 					const leftIds = leftPresences.map((presence) => presence.id);
 					players = players.filter((player) => !leftIds.includes(player.id));
 				}
 			)
 			.subscribe(async (status) => {
 				if (status === REALTIME_SUBSCRIBE_STATES.SUBSCRIBED) {
-					await channel.track(initialPlayer);
-
-					updateJoinPayload = channel.updateJoinPayload;
+					await channel.track(untrackedPlayer);
 				}
 			});
 
@@ -81,10 +76,10 @@ export const createPlayersState = ({
 		get players() {
 			return players;
 		},
-		async updatePlayer(player: UpdatePlayerArgs) {
-			await updatePlayer(player);
+		async updatePlayer(update: UpdatePlayerArgs) {
+			await updatePlayer(update);
 
-			updateJoinPayload?.({ ...player, id: initialPlayer.id });
+			player = { id: player.id, ...update };
 		}
 	};
 };
