@@ -18,17 +18,17 @@ export const load: PageServerLoad = async ({ cookies }) => {
 };
 
 export const actions = {
-	default: async ({ cookies, locals: { getSession }, params, request }) => {
-		const [form, session] = await Promise.all([
+	default: async ({ cookies, locals: { getUser }, params, request }) => {
+		const [form, user] = await Promise.all([
 			superValidate(request, valibot(formSchema)),
-			getSession()
+			getUser()
 		]);
 
 		if (!form.valid) {
 			return fail(400, { form, message: 'Invalid request' });
 		}
 
-		const playerId = session?.user.id ?? crypto.randomUUID();
+		const playerId = user?.id ?? crypto.randomUUID();
 		setPlayerSettingsCookie({ ...form.data, id: playerId }, cookies);
 
 		return redirect(302, paths.poker(params.roomId));

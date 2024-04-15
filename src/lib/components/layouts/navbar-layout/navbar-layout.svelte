@@ -1,9 +1,9 @@
 <script>
 	import { Button } from '$lib/components/ui/button';
-	import { sessionContext } from '$lib/contexts/session';
+	import { userContext } from '$lib/contexts/user';
 	import { paths } from '$lib/utils/paths';
 
-	const session = sessionContext.get();
+	const user = userContext.get();
 </script>
 
 <header class="w-full flex justify-between p-4 border-b-[1px] items-center">
@@ -11,7 +11,7 @@
 		<h1 class="text-3xl font-semibold">
 			<a href={paths.home}>Planning poker</a>
 		</h1>
-		{#if session()}
+		{#if user()}
 			<nav>
 				<ul>
 					<li>
@@ -21,7 +21,7 @@
 			</nav>
 		{/if}
 	</div>
-	{#if session()}
+	{#if user()}
 		<form action={paths.signOut} method="POST">
 			<Button type="submit" variant="secondary">Sign Out</Button>
 		</form>

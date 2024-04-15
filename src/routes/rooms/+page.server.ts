@@ -12,14 +12,14 @@ export const load: PageServerLoad = async ({
 	locals: { supabase },
 	parent
 }) => {
-	const { session } = await parent();
+	const { user } = await parent();
 
-	if (!session) {
+	if (!user) {
 		return redirect(302, paths.signIn);
 	}
 
 	const [roomsResult, form] = await Promise.all([
-		selectsRoom({ ownerId: session.user.id, supabase }),
+		selectsRoom({ ownerId: user?.id, supabase }),
 		superValidate(valibot(formSchema))
 	]);
 
@@ -29,20 +29,20 @@ export const load: PageServerLoad = async ({
 };
 
 export const actions = {
-	default: async ({ locals: { getSession, supabase }, request }) => {
-		const [form, session] = await Promise.all([
+	default: async ({ locals: { getUser, supabase }, request }) => {
+		const [form, user] = await Promise.all([
 			superValidate(request, valibot(formSchema)),
-			getSession()
+			getUser()
 		]);
 
-		if (!form.valid || !session?.user.id) {
+		if (!form.valid || !user?.id) {
 			return fail(400, { form, message: 'Invalid request' });
 		}
 
 		const response = await insertRoom({
 			description: form.data.description,
 			name: form.data.name,
-			playerId: session.user.id,
+			playerId: user.id,
 			supabase
 		});
 

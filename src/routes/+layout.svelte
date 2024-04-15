@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { sessionContext } from '$lib/contexts/session';
 	import { supabaseContext } from '$lib/contexts/supabase';
 
 	import type { PageData } from './$types';
 
 	import '../app.css';
+	import { userContext } from '$lib/contexts/user';
 
 	type Props = {
 		data: PageData;
@@ -12,10 +12,10 @@
 
 	const { data }: Props = $props();
 
-	let session = $state(data.session);
-	sessionContext.set(() => session);
+	let user = $state(data.user);
+	userContext.set(() => user);
 	$effect(() => {
-		session = data.session;
+		user = data.user;
 	});
 
 	let supabase = $state(data.supabase);

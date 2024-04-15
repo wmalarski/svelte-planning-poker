@@ -30,16 +30,9 @@ export const handle: Handle = ({ event, resolve }) => {
 		}
 	);
 
-	/**
-	 * a little helper that is written for convenience so that instead
-	 * of calling `const { data: { session } } = await supabase.auth.getSession()`
-	 * you just call this `await getSession()`
-	 */
-	event.locals.getSession = async () => {
-		const {
-			data: { session }
-		} = await event.locals.supabase.auth.getSession();
-		return session;
+	event.locals.getUser = async () => {
+		const result = await event.locals.supabase.auth.getUser();
+		return result.data.user;
 	};
 
 	return resolve(event, {

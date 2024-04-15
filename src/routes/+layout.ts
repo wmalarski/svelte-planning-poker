@@ -8,7 +8,7 @@ import { createBrowserClient, isBrowser, parse } from '@supabase/ssr';
 
 import type { LayoutLoad } from './$types';
 
-export const load: LayoutLoad = async ({ data, depends, fetch }) => {
+export const load: LayoutLoad = async ({ depends, fetch }) => {
 	depends('supabase:auth');
 
 	const supabase = createBrowserClient<Database>(
@@ -18,7 +18,7 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
 			cookies: {
 				get(key) {
 					if (!isBrowser()) {
-						return JSON.stringify(data.session);
+						return null;
 					}
 
 					const cookie = parse(document.cookie);
@@ -29,9 +29,7 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
 		}
 	);
 
-	const {
-		data: { session }
-	} = await supabase.auth.getSession();
+	const result = await supabase.auth.getSession();
 
-	return { session, supabase };
+	return { supabase, user: result.data.session?.user };
 };
