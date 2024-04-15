@@ -5,9 +5,9 @@
 
 	import type { HeadingLevel } from './index.js';
 
-	type $$Props = HTMLAttributes<HTMLHeadingElement> & {
+	type $$Props = {
 		tag?: HeadingLevel;
-	};
+	} & HTMLAttributes<HTMLHeadingElement>;
 
 	let className: $$Props['class'] = undefined;
 	export let tag: $$Props['tag'] = 'h3';

@@ -31,7 +31,7 @@
 			<div class="flex gap-2">
 				{#if isModerator}
 					{#if !isCurrent && !task.finished}
-						<Button onclick={onVote} type="button" variant="secondary">
+						<Button on:click={onVote} type="button" variant="secondary">
 							Vote
 						</Button>
 					{/if}

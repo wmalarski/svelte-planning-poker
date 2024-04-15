@@ -5,17 +5,22 @@
 	import * as Card from '$lib/components/ui/card';
 
 	import NameForm from './name-form.svelte';
+	import SpectatorForm from './spectator-form.svelte';
 
 	type Props = {
 		isModerator: boolean;
-		onPlayerUpdate: (update: UpdatePlayerArgs) => void;
+		onPlayerUpdate: (update: Partial<UpdatePlayerArgs>) => void;
 		player: PlayerState;
 	};
 
 	const { isModerator, onPlayerUpdate, player }: Props = $props();
 
 	const onNameChange = (name: string) => {
-		onPlayerUpdate({ name, spectator: player.spectator });
+		onPlayerUpdate({ name });
+	};
+
+	const onSpectatorChange = (spectator: boolean) => {
+		onPlayerUpdate({ spectator });
 	};
 </script>
 
@@ -28,8 +33,6 @@
 			<span>You have moderator rights</span>
 		{/if}
 		<NameForm onChange={onNameChange} {player} />
-		{#if player.spectator}
-			<span>You are spectator</span>
-		{/if}
+		<SpectatorForm onChange={onSpectatorChange} {player} />
 	</Card.Content>
 </Card.Root>

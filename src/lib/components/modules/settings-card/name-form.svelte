@@ -33,7 +33,7 @@
 	};
 </script>
 
-<form onsubmit={onSubmit}>
+<form on:submit={onSubmit}>
 	<fieldset>
 		<Label for="name">Name</Label>
 		<Input
@@ -45,9 +45,9 @@
 		/>
 	</fieldset>
 	{#if isEditing}
-		<Button onclick={onResetClick} type="reset">Reset</Button>
+		<Button on:click={onResetClick} type="reset">Reset</Button>
 		<Button type="submit">Save</Button>
 	{:else}
-		<Button onclick={onEditClick} type="button">Edit</Button>
+		<Button on:click={onEditClick} type="button">Edit</Button>
 	{/if}
 </form>

@@ -76,10 +76,10 @@ export const createPlayersState = ({
 		get players() {
 			return players;
 		},
-		async updatePlayer(update: UpdatePlayerArgs) {
-			await updatePlayer(update);
-
-			player = { id: player.id, ...update };
+		async updatePlayer(update: Partial<UpdatePlayerArgs>) {
+			const updated = { ...player, ...update };
+			await updatePlayer(updated);
+			player = updated;
 		}
 	};
 };

@@ -2,9 +2,9 @@
 	import { cn } from '$lib/components/ui/utils.js';
 	import * as FormPrimitive from 'formsnap';
 
-	type $$Props = FormPrimitive.FieldErrorsProps & {
+	type $$Props = {
 		errorClasses?: null | string | undefined;
-	};
+	} & FormPrimitive.FieldErrorsProps;
 
 	let className: $$Props['class'] = undefined;
 	export { className as class };

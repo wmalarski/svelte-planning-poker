@@ -1,8 +1,8 @@
 import Root from './input.svelte';
 
-export type FormInputEvent<T extends Event = Event> = T & {
+export type FormInputEvent<T extends Event = Event> = {
 	currentTarget: EventTarget & HTMLInputElement;
-};
+} & T;
 export type InputEvents = {
 	blur: FormInputEvent<FocusEvent>;
 	change: FormInputEvent<Event>;

@@ -33,11 +33,11 @@ const buttonVariants = tv({
 type Variant = VariantProps<typeof buttonVariants>['variant'];
 type Size = VariantProps<typeof buttonVariants>['size'];
 
-type Props = ButtonPrimitive.Props & {
+type Props = {
 	isLoading?: boolean;
 	size?: Size;
 	variant?: Variant;
-};
+} & ButtonPrimitive.Props;
 
 type Events = ButtonPrimitive.Events;
 

@@ -28,10 +28,10 @@
 
 <div>
 	{#if task.finished}
-		<Button onclick={onNextVoteClick}>Next vote</Button>
+		<Button on:click={onNextVoteClick}>Next vote</Button>
 		<ResetTaskAlertDialog taskId={task.id} />
 	{:else}
-		<Button onclick={onEndVoteClick}>End voting</Button>
+		<Button on:click={onEndVoteClick}>End voting</Button>
 	{/if}
 	<RemoveTaskAlertDialog taskId={task.id} />
 </div>

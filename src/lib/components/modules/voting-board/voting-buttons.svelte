@@ -37,7 +37,7 @@
 		<li>
 			<Button
 				disabled={task.finished}
-				onclick={onClick(card)}
+				on:click={onClick(card)}
 				variant={currentVote === card ? 'default' : 'secondary'}
 			>
 				{card}

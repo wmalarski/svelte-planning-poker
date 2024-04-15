@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { supabaseContext } from '$lib/contexts/supabase';
+	import { userContext } from '$lib/contexts/user';
 
 	import type { PageData } from './$types';
 
 	import '../app.css';
-	import { userContext } from '$lib/contexts/user';
 
 	type Props = {
 		data: PageData;

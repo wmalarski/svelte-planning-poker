@@ -66,7 +66,6 @@
 					player: data.player,
 					players: playersStore.players,
 					room: realtimeStore.room,
-					session: data.session,
 					tasks: realtimeStore.tasks
 				},
 				null,
