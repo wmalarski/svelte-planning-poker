@@ -1,4 +1,5 @@
 <script>
+	import { ThemeToggle } from '$lib/components/common/theme-toggle';
 	import { Button } from '$lib/components/ui/button';
 	import { userContext } from '$lib/contexts/user';
 	import { paths } from '$lib/utils/paths';
@@ -21,11 +22,14 @@
 			</nav>
 		{/if}
 	</div>
-	{#if user()}
-		<form action={paths.signOut} method="POST">
-			<Button type="submit" variant="secondary">Sign Out</Button>
-		</form>
-	{/if}
+	<div class="flex gap-4">
+		<ThemeToggle />
+		{#if user()}
+			<form action={paths.signOut} method="POST">
+				<Button type="submit" variant="secondary">Sign Out</Button>
+			</form>
+		{/if}
+	</div>
 </header>
 <main class="flex flex-col gap-4 max-w-5xl px-2 py-8 mx-auto">
 	<slot />

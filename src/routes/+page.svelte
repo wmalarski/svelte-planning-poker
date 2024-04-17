@@ -27,9 +27,7 @@
 		<li><a href={paths.signUpSuccess}>Sign Up Success</a></li>
 	</ul>
 
-	<pre class="max-w-md overflow-clip">{JSON.stringify(
-			data.session,
-			null,
-			2
-		)}</pre>
+	<pre class="max-w-md overflow-clip">
+		{JSON.stringify(data.user, null, 2)}
+	</pre>
 </NavbarLayout>
