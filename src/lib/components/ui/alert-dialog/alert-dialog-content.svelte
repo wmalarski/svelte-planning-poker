@@ -10,6 +10,7 @@
 	export let transitionConfig: $$Props['transitionConfig'] = undefined;
 
 	let className: $$Props['class'] = undefined;
+	
 	export { className as class };
 </script>
 

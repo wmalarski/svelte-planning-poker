@@ -1,10 +1,16 @@
-<script>
+<script lang="ts">
 	import { ThemeToggle } from '$lib/components/common/theme-toggle';
 	import { Button } from '$lib/components/ui/button';
 	import { userContext } from '$lib/contexts/user';
 	import { paths } from '$lib/utils/paths';
+	import type { Snippet } from 'svelte';
+
+	type Props = {
+		children: Snippet;
+	};
 
 	const user = userContext.get();
+	const { children }: Props = $props();
 </script>
 
 <header class="w-full flex justify-between p-4 border-b-[1px] items-center">
@@ -32,5 +38,5 @@
 	</div>
 </header>
 <main class="flex flex-col gap-4 max-w-5xl px-2 py-8 mx-auto">
-	<slot />
+	{@render children()}
 </main>
